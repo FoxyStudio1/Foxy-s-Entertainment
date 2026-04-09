@@ -46,7 +46,7 @@
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       overflow: hidden;
-      cursor: none;
+      cursor: default;
     }
     #intro.fade-out {
       animation: introFadeOut .9s ease forwards;
@@ -1172,6 +1172,34 @@
       opacity: 1;
       transform: none;
     }
+
+    /* ══════════════════════════════════════════
+       LANGUAGE TOGGLE
+    ══════════════════════════════════════════ */
+    .lang-toggle {
+      display: flex; align-items: center;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 30px;
+      overflow: hidden;
+      margin-left: 8px;
+    }
+    .lang-btn {
+      background: none; border: none; cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      color: var(--text-muted);
+      padding: 5px 12px;
+      transition: background .2s, color .2s;
+      text-transform: uppercase;
+    }
+    .lang-btn.active {
+      background: var(--orange);
+      color: #fff;
+    }
+    .lang-btn:hover:not(.active) { color: var(--text); }
   </style>
 </head>
 <body>
@@ -1243,12 +1271,18 @@
     Foxy's Palace
   </a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#animatronics">Characters</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#tickets">Tickets</a></li>
-    <li><a href="#location">Location</a></li>
-    <li><a class="nav-cta" href="#tickets">Book a Party!</a></li>
+    <li><a href="#about" data-i18n="nav_about">About</a></li>
+    <li><a href="#animatronics" data-i18n="nav_chars">Characters</a></li>
+    <li><a href="#experience" data-i18n="nav_exp">Experience</a></li>
+    <li><a href="#tickets" data-i18n="nav_tickets">Tickets</a></li>
+    <li><a href="#location" data-i18n="nav_loc">Location</a></li>
+    <li><a class="nav-cta" href="#tickets" data-i18n="nav_cta">Book a Party!</a></li>
+    <li>
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" id="btnPT" onclick="setLang('pt')">PT</button>
+      </div>
+    </li>
   </ul>
 </nav>
 
@@ -1257,19 +1291,19 @@
   <div class="hero-bg"></div>
   <div class="hero-stars" id="stars"></div>
 
-  <div class="hero-badge">✦ Est. 1993 — Foxy's Entertainment ✦</div>
-  <h1>Welcome to<br/><span>Foxy's Palace</span></h1>
-  <p class="hero-sub">The most extraordinary party experience in the world — featuring the only fully autonomous animatronic band on the planet!</p>
+  <div class="hero-badge" data-i18n="hero_badge">✦ Est. 1993 — Foxy's Entertainment ✦</div>
+  <h1><span data-i18n="hero_h1">Welcome to</span><br/><span>Foxy's Palace</span></h1>
+  <p class="hero-sub" data-i18n="hero_sub">The most extraordinary party experience in the world — featuring the only fully autonomous animatronic band on the planet!</p>
 
   <div class="hero-btns">
-    <a href="#tickets" class="btn btn-primary">🎉 Book Your Party</a>
-    <a href="#animatronics" class="btn btn-outline">Meet the Characters →</a>
+    <a href="#tickets" class="btn btn-primary" data-i18n="hero_btn1">🎉 Book Your Party</a>
+    <a href="#animatronics" class="btn btn-outline" data-i18n="hero_btn2">Meet the Characters →</a>
   </div>
 
   <div class="hero-img-wrap">
     <img src="restaurant_hero.png" alt="Foxy's Palace Restaurant"
          onerror="this.parentElement.style.display='none'"/>
-    <div class="hero-img-badge">🌟 #1 Party<br/>Destination 1993</div>
+    <div class="hero-img-badge" data-i18n="hero_badge2">🌟 #1 Party<br/>Destination 1993</div>
   </div>
 </section>
 
@@ -1284,32 +1318,32 @@
         </div>
       </div>
       <div class="reveal">
-        <span class="section-label">Our Story</span>
-        <h2 class="section-title">Where Magic Meets<br/><span class="highlight">Technology</span></h2>
+        <span class="section-label" data-i18n="about_label">Our Story</span>
+        <h2 class="section-title" data-i18n-html="about_title">Where Magic Meets<br/><span class="highlight">Technology</span></h2>
         <div class="divider"></div>
-        <p class="section-desc">
+        <p class="section-desc" data-i18n-html="about_p1">
           In 1993, <strong>Foxy's Entertainment</strong> changed birthday parties forever. We opened the doors of Foxy's Palace with a single mission: create an experience that no child — or adult — would ever forget. Our secret? <strong>The world's first truly intelligent animatronic performers.</strong>
         </p>
         <br/>
-        <p class="section-desc">
+        <p class="section-desc" data-i18n="about_p2">
           Unlike anything else on the market, our animatronics can walk freely through the restaurant, hold conversations, play games, open doors, sing, dance, and genuinely interact with every single guest. Powered by proprietary A.I. developed exclusively by Foxy's Entertainment, they aren't just machines — they're family.
         </p>
         <div class="about-stats">
           <div class="stat-box">
             <div class="stat-number">1993</div>
-            <div class="stat-label">Year Founded</div>
+            <div class="stat-label" data-i18n="stat1">Year Founded</div>
           </div>
           <div class="stat-box">
             <div class="stat-number">3+</div>
-            <div class="stat-label">Locations Worldwide</div>
+            <div class="stat-label" data-i18n="stat2">Locations Worldwide</div>
           </div>
           <div class="stat-box">
             <div class="stat-number">4</div>
-            <div class="stat-label">Original Characters</div>
+            <div class="stat-label" data-i18n="stat3">Original Characters</div>
           </div>
           <div class="stat-box">
             <div class="stat-number">∞</div>
-            <div class="stat-label">Memories Made</div>
+            <div class="stat-label" data-i18n="stat4">Memories Made</div>
           </div>
         </div>
       </div>
@@ -1321,10 +1355,10 @@
 <section id="animatronics" class="anim-section">
   <div class="section-inner">
     <div class="text-center reveal">
-      <span class="section-label">The Stars of the Show</span>
-      <h2 class="section-title">Meet the <span class="highlight">Gang!</span></h2>
+      <span class="section-label" data-i18n="anim_label">The Stars of the Show</span>
+      <h2 class="section-title">Meet the <span class="highlight" data-i18n="anim_title">Gang!</span></h2>
       <div class="divider"></div>
-      <p class="section-desc">Powered by cutting-edge A.I., our four incredible animatronics are the heart and soul of Foxy's Palace. They're not performers — they're your new best friends.</p>
+      <p class="section-desc" data-i18n="anim_desc">Powered by cutting-edge A.I., our four incredible animatronics are the heart and soul of Foxy's Palace. They're not performers — they're your new best friends.</p>
     </div>
 
     <div class="anim-grid">
@@ -1333,17 +1367,17 @@
       <div class="anim-card reveal" data-char="foxy">
         <div class="anim-img-wrap">
           <img src="foxy.png" alt="Foxy the Fox"/>
-          <span class="anim-tag">Lead Star</span>
+          <span class="anim-tag" data-i18n="foxy_tag">Lead Star</span>
         </div>
         <div class="anim-body">
           <div class="anim-name">Foxy</div>
-          <div class="anim-role">🎤 Singer & Party Leader</div>
-          <p class="anim-desc">
+          <div class="anim-role" data-i18n="foxy_role">🎤 Singer & Party Leader</div>
+          <p class="anim-desc" data-i18n="foxy_desc">
             The face of Foxy's Palace! This energetic blue-and-purple fox is always at the center of the action — cracking jokes, leading songs, and making every single guest feel like the star of the show. Got adults at the party? Foxy switches gears and keeps the grown-ups entertained too!
           </p>
           <div class="anim-tags">
             <span class="anim-tag-pill">🎤 Vocals</span>
-            <span class="anim-tag-pill">🎉 Party Host</span>
+            <span class="anim-tag-pill" data-i18n="foxy_pill2">🎉 Party Host</span>
             <span class="anim-tag-pill">💙 Blue & Purple</span>
           </div>
         </div>
@@ -1353,17 +1387,17 @@
       <div class="anim-card reveal" data-char="hopps">
         <div class="anim-img-wrap">
           <img src="hopps.png" alt="Hopps the Rabbit"/>
-          <span class="anim-tag">Games Queen</span>
+          <span class="anim-tag" data-i18n="hopps_tag">Games Queen</span>
         </div>
         <div class="anim-body">
           <div class="anim-name">Hopps</div>
-          <div class="anim-role">🥁 Drummer & Games Expert</div>
-          <p class="anim-desc">
+          <div class="anim-role" data-i18n="hopps_role">🥁 Drummer & Games Expert</div>
+          <p class="anim-desc" data-i18n="hopps_desc">
             This fierce green bunny doesn't sit still for a second! Hide-and-seek, tag, football, basketball — Hopps organises every game and makes sure no child gets left out. She and Foxy are an unstoppable duo when it comes to keeping the kids absolutely buzzing with excitement.
           </p>
           <div class="anim-tags">
             <span class="anim-tag-pill">🥁 Drums</span>
-            <span class="anim-tag-pill">🏃 Active Games</span>
+            <span class="anim-tag-pill" data-i18n="hopps_pill2">🏃 Active Games</span>
             <span class="anim-tag-pill">💚 Green</span>
           </div>
         </div>
@@ -1373,18 +1407,18 @@
       <div class="anim-card reveal" data-char="draccon">
         <div class="anim-img-wrap">
           <img src="draccon.png" alt="Draccon the Dragon"/>
-          <span class="anim-tag">The Cool One</span>
+          <span class="anim-tag" data-i18n="draccon_tag">The Cool One</span>
         </div>
         <div class="anim-body">
           <div class="anim-name">Draccon</div>
-          <div class="anim-role">🎸 Guitarist & Stunt Master</div>
-          <p class="anim-desc">
+          <div class="anim-role" data-i18n="draccon_role">🎸 Guitarist & Stunt Master</div>
+          <p class="anim-desc" data-i18n-html="draccon_desc">
             Draccon thinks he's the coolest dragon in the universe — and honestly? He might be right. This fire-breathing showoff pulls off the most jaw-dropping stunts and shreds on his electric guitar leaving kids completely stunned. Penny's always nearby to make sure he doesn't go <em>too</em> far.
           </p>
           <div class="anim-tags">
             <span class="anim-tag-pill">🎸 Guitar</span>
             <span class="anim-tag-pill">🔥 Stunts</span>
-            <span class="anim-tag-pill">😎 Radical</span>
+            <span class="anim-tag-pill" data-i18n="draccon_pill3">😎 Radical</span>
           </div>
         </div>
       </div>
@@ -1393,17 +1427,17 @@
       <div class="anim-card reveal" data-char="penny">
         <div class="anim-img-wrap">
           <img src="penny.png" alt="Penny the Panda"/>
-          <span class="anim-tag">The Heart</span>
+          <span class="anim-tag" data-i18n="penny_tag">The Heart</span>
         </div>
         <div class="anim-body">
           <div class="anim-name">Penny</div>
-          <div class="anim-role">📖 Storyteller & Caretaker</div>
-          <p class="anim-desc">
+          <div class="anim-role" data-i18n="penny_role">📖 Storyteller & Caretaker</div>
+          <p class="anim-desc" data-i18n="penny_desc">
             The calmest and most gentle member of the team, this adorable panda is the one who tucks in tired little ones, reads bedtime stories, does arts & crafts, and provides the perfect balance to Draccon's chaos. When things get too wild, Penny's soft voice brings the peace right back.
           </p>
           <div class="anim-tags">
-            <span class="anim-tag-pill">📖 Stories</span>
-            <span class="anim-tag-pill">🎨 Crafts</span>
+            <span class="anim-tag-pill" data-i18n="penny_pill1">📖 Stories</span>
+            <span class="anim-tag-pill" data-i18n="penny_pill2">🎨 Crafts</span>
             <span class="anim-tag-pill">🐼 Panda</span>
           </div>
         </div>
@@ -1417,63 +1451,63 @@
 <section id="experience">
   <div class="section-inner">
     <div class="reveal">
-      <span class="section-label">Explore the Palace</span>
-      <h2 class="section-title">Every Room a New <span class="highlight">Adventure</span></h2>
+      <span class="section-label" data-i18n="exp_label">Explore the Palace</span>
+      <h2 class="section-title">Every Room a New <span class="highlight" data-i18n="exp_title">Adventure</span></h2>
       <div class="divider"></div>
-      <p class="section-desc">Foxy's Palace is more than a restaurant — it's an entire world. With 9 unique areas to explore, no two visits are ever the same.</p>
+      <p class="section-desc" data-i18n="exp_desc">Foxy's Palace is more than a restaurant — it's an entire world. With 9 unique areas to explore, no two visits are ever the same.</p>
     </div>
 
     <div class="areas-grid">
       <div class="area-card reveal">
         <div class="area-icon">🕶️</div>
-        <div class="area-num"><span>01</span> — VR Test Zone</div>
-        <p class="area-desc">Step into the future! Try our exclusive Virtual Reality experiences — the only ones of their kind available to the public.</p>
+        <div class="area-num"><span>01</span> — <span data-i18n="area1_name">VR Test Zone</span></div>
+        <p class="area-desc" data-i18n="area1_desc">Step into the future! Try our exclusive Virtual Reality experiences — the only ones of their kind available to the public.</p>
       </div>
       <div class="area-card reveal">
         <div class="area-icon">🕹️</div>
-        <div class="area-num"><span>02</span> — Arcades</div>
-        <p class="area-desc">Dozens of arcade machines, classic carnival games, and ticket-prize counters. Win big and trade your tickets for epic rewards!</p>
+        <div class="area-num"><span>02</span> — <span data-i18n="area2_name">Arcades</span></div>
+        <p class="area-desc" data-i18n="area2_desc">Dozens of arcade machines, classic carnival games, and ticket-prize counters. Win big and trade your tickets for epic rewards!</p>
       </div>
       <div class="area-card reveal">
         <div class="area-icon">⚽</div>
-        <div class="area-num"><span>03</span> — Mini Sports Field</div>
-        <p class="area-desc">A full mini football and basketball court. Hopps is your coach — and she plays to win. Can your team beat her?</p>
+        <div class="area-num"><span>03</span> — <span data-i18n="area3_name">Mini Sports Field</span></div>
+        <p class="area-desc" data-i18n="area3_desc">A full mini football and basketball court. Hopps is your coach — and she plays to win. Can your team beat her?</p>
       </div>
       <div class="area-card reveal">
         <div class="area-icon">😴</div>
-        <div class="area-num"><span>04</span> — Rest Corner</div>
-        <p class="area-desc">Soft pillows, cozy lighting, and Penny telling stories. The perfect spot when little adventurers need to recharge.</p>
+        <div class="area-num"><span>04</span> — <span data-i18n="area4_name">Rest Corner</span></div>
+        <p class="area-desc" data-i18n="area4_desc">Soft pillows, cozy lighting, and Penny telling stories. The perfect spot when little adventurers need to recharge.</p>
       </div>
       <div class="area-card reveal">
         <div class="area-icon">🎭</div>
-        <div class="area-num"><span>05</span> — Main Stage Hall</div>
-        <p class="area-desc">The heart of the Palace! The full animatronic band performs live shows throughout the day. This is where the magic happens.</p>
+        <div class="area-num"><span>05</span> — <span data-i18n="area5_name">Main Stage Hall</span></div>
+        <p class="area-desc" data-i18n="area5_desc">The heart of the Palace! The full animatronic band performs live shows throughout the day. This is where the magic happens.</p>
       </div>
       <div class="area-card reveal">
         <div class="area-icon">⚙️</div>
-        <div class="area-num"><span>06</span> — Service Room</div>
-        <p class="area-desc">Our dedicated staff are always on hand to ensure your party runs perfectly. Private party planning happens right here.</p>
+        <div class="area-num"><span>06</span> — <span data-i18n="area6_name">Service Room</span></div>
+        <p class="area-desc" data-i18n="area6_desc">Our dedicated staff are always on hand to ensure your party runs perfectly. Private party planning happens right here.</p>
       </div>
       <div class="area-card reveal">
         <div class="area-icon">🍕</div>
-        <div class="area-num"><span>07</span> — Kitchen</div>
-        <p class="area-desc">Fresh food prepared on-site for every party. From birthday cakes to pizza and party platters — our chefs cover it all.</p>
+        <div class="area-num"><span>07</span> — <span data-i18n="area7_name">Kitchen</span></div>
+        <p class="area-desc" data-i18n="area7_desc">Fresh food prepared on-site for every party. From birthday cakes to pizza and party platters — our chefs cover it all.</p>
       </div>
       <div class="area-card reveal">
         <div class="area-icon">🚪</div>
-        <div class="area-num"><span>08</span> — Entrance Hall</div>
-        <p class="area-desc">Your grand arrival begins here. Get your wristband, meet the team, and prepare for an unforgettable experience.</p>
+        <div class="area-num"><span>08</span> — <span data-i18n="area8_name">Entrance Hall</span></div>
+        <p class="area-desc" data-i18n="area8_desc">Your grand arrival begins here. Get your wristband, meet the team, and prepare for an unforgettable experience.</p>
       </div>
       <div class="area-card reveal">
         <div class="area-icon">🔒</div>
-        <div class="area-num"><span>09</span> — Security Room</div>
-        <p class="area-desc">Your children's safety is our top priority. Our 24/7 monitored security ensures every guest is safe throughout the entire visit.</p>
+        <div class="area-num"><span>09</span> — <span data-i18n="area9_name">Security Room</span></div>
+        <p class="area-desc" data-i18n="area9_desc">Your children's safety is our top priority. Our 24/7 monitored security ensures every guest is safe throughout the entire visit.</p>
       </div>
     </div>
 
     <!-- Gallery -->
     <div class="reveal" style="margin-top:60px;">
-      <span class="section-label">Gallery</span>
+      <span class="section-label" data-i18n="gallery_label">Gallery</span>
       <h3 class="section-title" style="font-size:1.8rem;">A Peek Inside the <span class="highlight">Palace</span></h3>
     </div>
     <div class="gallery-strip">
@@ -1505,81 +1539,81 @@
 <section id="tickets" class="ticket-section">
   <div class="section-inner">
     <div class="text-center reveal">
-      <span class="section-label">Pricing & Packages</span>
-      <h2 class="section-title">Choose Your <span class="highlight">Adventure</span></h2>
+      <span class="section-label" data-i18n="tick_label">Pricing & Packages</span>
+      <h2 class="section-title">Choose Your <span class="highlight" data-i18n="tick_title">Adventure</span></h2>
       <div class="divider"></div>
-      <p class="section-desc">Every package includes full access to the animatronic show, all play areas, and our world-famous kitchen. The only question is: how legendary do you want it to be?</p>
+      <p class="section-desc" data-i18n="tick_desc">Every package includes full access to the animatronic show, all play areas, and our world-famous kitchen. The only question is: how legendary do you want it to be?</p>
     </div>
 
     <div class="ticket-grid">
 
       <div class="ticket-card reveal">
         <div class="ticket-top">
-          <div class="ticket-name">Classic Entry</div>
-          <div class="ticket-sub">Perfect for a casual visit</div>
+          <div class="ticket-name" data-i18n="t1_name">Classic Entry</div>
+          <div class="ticket-sub" data-i18n="t1_sub">Perfect for a casual visit</div>
           <div class="ticket-price">
             <span class="currency">$</span>
             <span class="amount">12</span>
-            <span class="per">/ per child</span>
+            <span class="per" data-i18n="t1_per">/ per child</span>
           </div>
         </div>
         <div class="ticket-bot">
           <ul class="ticket-perks">
-            <li>Full access to all play areas</li>
-            <li>Live animatronic show (3x daily)</li>
-            <li>Arcade tokens included (x20)</li>
-            <li>Welcome snack pack</li>
+            <li data-i18n="t1_p1">Full access to all play areas</li>
+            <li data-i18n="t1_p2">Live animatronic show (3x daily)</li>
+            <li data-i18n="t1_p3">Arcade tokens included (x20)</li>
+            <li data-i18n="t1_p4">Welcome snack pack</li>
           </ul>
-          <a href="#location" class="ticket-cta secondary">Find a Location</a>
+          <a href="#location" class="ticket-cta secondary" data-i18n="t1_cta">Find a Location</a>
         </div>
       </div>
 
       <div class="ticket-card featured reveal">
-        <div class="ticket-featured-badge">⭐ Most Popular</div>
+        <div class="ticket-featured-badge" data-i18n="t2_badge">⭐ Most Popular</div>
         <div class="ticket-top">
-          <div class="ticket-name">Birthday Royale</div>
-          <div class="ticket-sub">The full birthday experience</div>
+          <div class="ticket-name" data-i18n="t2_name">Birthday Royale</div>
+          <div class="ticket-sub" data-i18n="t2_sub">The full birthday experience</div>
           <div class="ticket-price">
             <span class="currency">$</span>
             <span class="amount">89</span>
-            <span class="per">/ per party (up to 10 kids)</span>
+            <span class="per" data-i18n="t2_per">/ per party (up to 10 kids)</span>
           </div>
         </div>
         <div class="ticket-bot">
           <ul class="ticket-perks">
-            <li>Private party room reserved for 3 hours</li>
-            <li>Dedicated animatronic performance just for you</li>
-            <li>Custom birthday cake from our kitchen</li>
-            <li>Unlimited arcade tokens for all guests</li>
-            <li>VR Zone access (1 session per child)</li>
-            <li>Birthday crown & gift bag for the birthday star</li>
-            <li>Professional party photos with the characters</li>
+            <li data-i18n="t2_p1">Private party room reserved for 3 hours</li>
+            <li data-i18n="t2_p2">Dedicated animatronic performance just for you</li>
+            <li data-i18n="t2_p3">Custom birthday cake from our kitchen</li>
+            <li data-i18n="t2_p4">Unlimited arcade tokens for all guests</li>
+            <li data-i18n="t2_p5">VR Zone access (1 session per child)</li>
+            <li data-i18n="t2_p6">Birthday crown & gift bag for the birthday star</li>
+            <li data-i18n="t2_p7">Professional party photos with the characters</li>
           </ul>
-          <a href="#location" class="ticket-cta primary">Book This Package!</a>
+          <a href="#location" class="ticket-cta primary" data-i18n="t2_cta">Book This Package!</a>
         </div>
       </div>
 
       <div class="ticket-card reveal">
         <div class="ticket-top">
-          <div class="ticket-name">Palace Royale</div>
-          <div class="ticket-sub">For the truly unforgettable</div>
+          <div class="ticket-name" data-i18n="t3_name">Palace Royale</div>
+          <div class="ticket-sub" data-i18n="t3_sub">For the truly unforgettable</div>
           <div class="ticket-price">
             <span class="currency">$</span>
             <span class="amount">199</span>
-            <span class="per">/ per party (up to 25 guests)</span>
+            <span class="per" data-i18n="t3_per">/ per party (up to 25 guests)</span>
           </div>
         </div>
         <div class="ticket-bot">
           <ul class="ticket-perks">
-            <li>Exclusive use of the entire Palace for 4 hours</li>
-            <li>All 4 animatronics dedicated to your event</li>
-            <li>Full catered dinner for all guests</li>
-            <li>Custom show written around the birthday child</li>
-            <li>Unlimited everything — arcade, VR, sports</li>
-            <li>Personalized souvenir for every guest</li>
-            <li>Adult entertainment package included</li>
+            <li data-i18n="t3_p1">Exclusive use of the entire Palace for 4 hours</li>
+            <li data-i18n="t3_p2">All 4 animatronics dedicated to your event</li>
+            <li data-i18n="t3_p3">Full catered dinner for all guests</li>
+            <li data-i18n="t3_p4">Custom show written around the birthday child</li>
+            <li data-i18n="t3_p5">Unlimited everything — arcade, VR, sports</li>
+            <li data-i18n="t3_p6">Personalized souvenir for every guest</li>
+            <li data-i18n="t3_p7">Adult entertainment package included</li>
           </ul>
-          <a href="#location" class="ticket-cta secondary">Contact Us</a>
+          <a href="#location" class="ticket-cta secondary" data-i18n="t3_cta">Contact Us</a>
         </div>
       </div>
 
@@ -1596,10 +1630,10 @@
 <section id="location">
   <div class="section-inner">
     <div class="reveal">
-      <span class="section-label">Find Us</span>
-      <h2 class="section-title">Visit the <span class="highlight">Original</span> Palace</h2>
+      <span class="section-label" data-i18n="loc_label">Find Us</span>
+      <h2 class="section-title">Visit the <span class="highlight" data-i18n="loc_title">Original</span> Palace</h2>
       <div class="divider"></div>
-      <p class="section-desc">The legendary flagship that started it all. Foxy's Palace #001 — where every single memory was first made.</p>
+      <p class="section-desc" data-i18n="loc_desc">The legendary flagship that started it all. Foxy's Palace #001 — where every single memory was first made.</p>
     </div>
 
     <div class="map-wrap">
@@ -1671,26 +1705,26 @@
       <!-- Info cards -->
       <div class="map-info reveal">
         <div class="info-card">
-          <h4>📍 Address</h4>
-          <p>247 Foxy Boulevard<br/>Entertainment District<br/>Springdale, CA 90210</p>
+          <h4 data-i18n="map_addr_title">📍 Address</h4>
+          <p data-i18n-html="map_addr">247 Foxy Boulevard<br/>Entertainment District<br/>Springdale, CA 90210</p>
         </div>
         <div class="info-card">
-          <h4>🕐 Opening Hours</h4>
+          <h4 data-i18n="map_hours_title">🕐 Opening Hours</h4>
           <ul>
-            <li>Monday – Friday: 10am – 9pm</li>
-            <li>Saturday: 9am – 11pm</li>
-            <li>Sunday: 10am – 8pm</li>
-            <li>Holidays: Special hours apply</li>
+            <li data-i18n="map_h1">Monday – Friday: 10am – 9pm</li>
+            <li data-i18n="map_h2">Saturday: 9am – 11pm</li>
+            <li data-i18n="map_h3">Sunday: 10am – 8pm</li>
+            <li data-i18n="map_h4">Holidays: Special hours apply</li>
           </ul>
         </div>
         <div class="info-card">
-          <h4>📞 Reservations</h4>
-          <p>Party bookings must be made at least 7 days in advance. Walk-ins welcome for Classic Entry tickets subject to availability.</p>
+          <h4 data-i18n="map_res_title">📞 Reservations</h4>
+          <p data-i18n="map_res">Party bookings must be made at least 7 days in advance. Walk-ins welcome for Classic Entry tickets subject to availability.</p>
           <br/>
           <p><strong style="color:var(--orange)">☎ (555) 392-FOXY</strong></p>
         </div>
         <div class="info-card">
-          <h4>🌍 Other Locations</h4>
+          <h4 data-i18n="map_other_title">🌍 Other Locations</h4>
           <ul>
             <li>Foxy's Palace #002 — Maplewood, TX</li>
             <li>Foxy's Palace #003 — Riverdale, FL</li>
@@ -1709,19 +1743,19 @@
       <div class="footer-brand">
         <img src="logo.png" alt="Foxy's Palace Logo"
              onerror="this.style.display='none'"/>
-        <p>A Foxy's Entertainment property. Creating magical moments through the power of technology and imagination since 1993.</p>
+        <p data-i18n="footer_brand">A Foxy's Entertainment property. Creating magical moments through the power of technology and imagination since 1993.</p>
       </div>
       <div class="footer-col">
-        <h5>Visit</h5>
+        <h5 data-i18n="footer_col1">Visit</h5>
         <ul>
-          <li><a href="#about">Our Story</a></li>
-          <li><a href="#experience">The Palace</a></li>
-          <li><a href="#location">Locations</a></li>
-          <li><a href="#location">Opening Hours</a></li>
+          <li><a href="#about" data-i18n="footer_l1">Our Story</a></li>
+          <li><a href="#experience" data-i18n="footer_l2">The Palace</a></li>
+          <li><a href="#location" data-i18n="footer_l3">Locations</a></li>
+          <li><a href="#location" data-i18n="footer_l4">Opening Hours</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h5>Characters</h5>
+        <h5 data-i18n="footer_col2">Characters</h5>
         <ul>
           <li><a href="#animatronics">Foxy</a></li>
           <li><a href="#animatronics">Hopps</a></li>
@@ -1730,17 +1764,17 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h5>Parties</h5>
+        <h5 data-i18n="footer_col3">Parties</h5>
         <ul>
-          <li><a href="#tickets">Classic Entry</a></li>
-          <li><a href="#tickets">Birthday Royale</a></li>
-          <li><a href="#tickets">Palace Royale</a></li>
-          <li><a href="#location">Contact Us</a></li>
+          <li><a href="#tickets" data-i18n="t1_name">Classic Entry</a></li>
+          <li><a href="#tickets" data-i18n="t2_name">Birthday Royale</a></li>
+          <li><a href="#tickets" data-i18n="t3_name">Palace Royale</a></li>
+          <li><a href="#location" data-i18n="t3_cta">Contact Us</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 1993 <strong>Foxy's Entertainment Inc.</strong> All rights reserved. All animatronic characters are trademarked properties of Foxy's Entertainment.</p>
+      <p class="footer-copy" data-i18n-html="footer_copy">© 1993 <strong>Foxy's Entertainment Inc.</strong> All rights reserved. All animatronic characters are trademarked properties of Foxy's Entertainment.</p>
       <p class="footer-copy" style="color: rgba(255,255,255,.2); font-size:.7rem;">A Foxy's Entertainment Production</p>
     </div>
   </div>
@@ -1857,7 +1891,146 @@
   }
   window.dismissIntro = dismissIntro;
 
-  // ── MAIN SITE LOGIC ──────────────────────────────────
+  // ── LANGUAGE SYSTEM ──────────────────────────────────
+  const T = {
+    en: {
+      nav_about:'About', nav_chars:'Characters', nav_exp:'Experience',
+      nav_tickets:'Tickets', nav_loc:'Location', nav_cta:'Book a Party!',
+      hero_badge:'✦ Est. 1993 — Foxy\'s Entertainment ✦',
+      hero_h1:'Welcome to', hero_sub:'The most extraordinary party experience in the world — featuring the only fully autonomous animatronic band on the planet!',
+      hero_btn1:'🎉 Book Your Party', hero_btn2:'Meet the Characters →',
+      hero_badge2:'🌟 #1 Party<br/>Destination 1993',
+      about_label:'Our Story',
+      about_title:'Where Magic Meets<br/><span class="highlight">Technology</span>',
+      about_p1:'In 1993, <strong>Foxy\'s Entertainment</strong> changed birthday parties forever. We opened the doors of Foxy\'s Palace with a single mission: create an experience that no child — or adult — would ever forget. Our secret? <strong>The world\'s first truly intelligent animatronic performers.</strong>',
+      about_p2:"Unlike anything else on the market, our animatronics can walk freely through the restaurant, hold conversations, play games, open doors, sing, dance, and genuinely interact with every single guest. Powered by proprietary A.I. developed exclusively by Foxy's Entertainment, they aren't just machines — they're family.",
+      stat1:'Year Founded', stat2:'Locations Worldwide', stat3:'Original Characters', stat4:'Memories Made',
+      anim_label:'The Stars of the Show', anim_title:'Gang!',
+      anim_desc:"Powered by cutting-edge A.I., our four incredible animatronics are the heart and soul of Foxy's Palace. They're not performers — they're your new best friends.",
+      foxy_tag:'Lead Star', foxy_role:'🎤 Singer & Party Leader',
+      foxy_desc:"The face of Foxy's Palace! This energetic blue-and-purple fox is always at the center of the action — cracking jokes, leading songs, and making every single guest feel like the star of the show. Got adults at the party? Foxy switches gears and keeps the grown-ups entertained too!",
+      foxy_pill2:'🎉 Party Host',
+      hopps_tag:'Games Queen', hopps_role:'🥁 Drummer & Games Expert',
+      hopps_desc:"This fierce green bunny doesn't sit still for a second! Hide-and-seek, tag, football, basketball — Hopps organises every game and makes sure no child gets left out. She and Foxy are an unstoppable duo when it comes to keeping the kids absolutely buzzing with excitement.",
+      hopps_pill2:'🏃 Active Games',
+      draccon_tag:'The Cool One', draccon_role:'🎸 Guitarist & Stunt Master',
+      draccon_desc:"Draccon thinks he's the coolest dragon in the universe — and honestly? He might be right. This fire-breathing showoff pulls off the most jaw-dropping stunts and shreds on his electric guitar leaving kids completely stunned. Penny's always nearby to make sure he doesn't go <em>too</em> far.",
+      draccon_pill3:'😎 Radical',
+      penny_tag:'The Heart', penny_role:'📖 Storyteller & Caretaker',
+      penny_desc:"The calmest and most gentle member of the team, this adorable panda is the one who tucks in tired little ones, reads bedtime stories, does arts & crafts, and provides the perfect balance to Draccon's chaos. When things get too wild, Penny's soft voice brings the peace right back.",
+      penny_pill1:'📖 Stories', penny_pill2:'🎨 Crafts',
+      exp_label:'Explore the Palace', exp_title:'Adventure',
+      exp_desc:"Foxy's Palace is more than a restaurant — it's an entire world. With 9 unique areas to explore, no two visits are ever the same.",
+      area1_name:'VR Test Zone', area1_desc:'Step into the future! Try our exclusive Virtual Reality experiences — the only ones of their kind available to the public.',
+      area2_name:'Arcades', area2_desc:'Dozens of arcade machines, classic carnival games, and ticket-prize counters. Win big and trade your tickets for epic rewards!',
+      area3_name:'Mini Sports Field', area3_desc:'A full mini football and basketball court. Hopps is your coach — and she plays to win. Can your team beat her?',
+      area4_name:'Rest Corner', area4_desc:'Soft pillows, cozy lighting, and Penny telling stories. The perfect spot when little adventurers need to recharge.',
+      area5_name:'Main Stage Hall', area5_desc:'The heart of the Palace! The full animatronic band performs live shows throughout the day. This is where the magic happens.',
+      area6_name:'Service Room', area6_desc:'Our dedicated staff are always on hand to ensure your party runs perfectly. Private party planning happens right here.',
+      area7_name:'Kitchen', area7_desc:'Fresh food prepared on-site for every party. From birthday cakes to pizza and party platters — our chefs cover it all.',
+      area8_name:'Entrance Hall', area8_desc:'Your grand arrival begins here. Get your wristband, meet the team, and prepare for an unforgettable experience.',
+      area9_name:'Security Room', area9_desc:"Your children's safety is our top priority. Our 24/7 monitored security ensures every guest is safe throughout the entire visit.",
+      gallery_label:'Gallery',
+      tick_label:'Pricing & Packages', tick_title:'Adventure',
+      tick_desc:'Every package includes full access to the animatronic show, all play areas, and our world-famous kitchen. The only question is: how legendary do you want it to be?',
+      t1_name:'Classic Entry', t1_sub:'Perfect for a casual visit', t1_per:'/ per child',
+      t1_p1:'Full access to all play areas', t1_p2:'Live animatronic show (3x daily)', t1_p3:'Arcade tokens included (x20)', t1_p4:'Welcome snack pack', t1_cta:'Find a Location',
+      t2_badge:'⭐ Most Popular', t2_name:'Birthday Royale', t2_sub:'The full birthday experience', t2_per:'/ per party (up to 10 kids)',
+      t2_p1:'Private party room reserved for 3 hours', t2_p2:'Dedicated animatronic performance just for you', t2_p3:'Custom birthday cake from our kitchen',
+      t2_p4:'Unlimited arcade tokens for all guests', t2_p5:'VR Zone access (1 session per child)', t2_p6:'Birthday crown & gift bag for the birthday star', t2_p7:'Professional party photos with the characters', t2_cta:'Book This Package!',
+      t3_name:'Palace Royale', t3_sub:'For the truly unforgettable', t3_per:'/ per party (up to 25 guests)',
+      t3_p1:'Exclusive use of the entire Palace for 4 hours', t3_p2:'All 4 animatronics dedicated to your event', t3_p3:'Full catered dinner for all guests',
+      t3_p4:'Custom show written around the birthday child', t3_p5:'Unlimited everything — arcade, VR, sports', t3_p6:'Personalized souvenir for every guest', t3_p7:'Adult entertainment package included', t3_cta:'Contact Us',
+      loc_label:'Find Us', loc_title:'Original', loc_desc:"The legendary flagship that started it all. Foxy's Palace #001 — where every single memory was first made.",
+      map_addr_title:'📍 Address', map_addr:'247 Foxy Boulevard<br/>Entertainment District<br/>Springdale, CA 90210',
+      map_hours_title:'🕐 Opening Hours', map_h1:'Monday – Friday: 10am – 9pm', map_h2:'Saturday: 9am – 11pm', map_h3:'Sunday: 10am – 8pm', map_h4:'Holidays: Special hours apply',
+      map_res_title:'📞 Reservations', map_res:'Party bookings must be made at least 7 days in advance. Walk-ins welcome for Classic Entry tickets subject to availability.',
+      map_other_title:'🌍 Other Locations',
+      footer_brand:"A Foxy's Entertainment property. Creating magical moments through the power of technology and imagination since 1993.",
+      footer_col1:'Visit', footer_col2:'Characters', footer_col3:'Parties',
+      footer_l1:'Our Story', footer_l2:'The Palace', footer_l3:'Locations', footer_l4:'Opening Hours',
+      footer_copy:'© 1993 <strong>Foxy\'s Entertainment Inc.</strong> All rights reserved. All animatronic characters are trademarked properties of Foxy\'s Entertainment.',
+    },
+    pt: {
+      nav_about:'Sobre Nós', nav_chars:'Personagens', nav_exp:'Experiência',
+      nav_tickets:'Bilhetes', nav_loc:'Localização', nav_cta:'Marcar Festa!',
+      hero_badge:'✦ Est. 1993 — Foxy\'s Entertainment ✦',
+      hero_h1:'Bem-vindo ao', hero_sub:'A experiência de festas mais extraordinária do mundo — com a única banda de animatrónicos totalmente autónomos do planeta!',
+      hero_btn1:'🎉 Marcar a Tua Festa', hero_btn2:'Conhece as Personagens →',
+      hero_badge2:'🌟 Destino #1<br/>de Festas 1993',
+      about_label:'A Nossa História',
+      about_title:'Onde a Magia Encontra<br/><span class="highlight">a Tecnologia</span>',
+      about_p1:'Em 1993, a <strong>Foxy\'s Entertainment</strong> mudou as festas de aniversário para sempre. Abrimos as portas do Foxy\'s Palace com uma única missão: criar uma experiência que nenhuma criança — nem adulto — alguma vez esquecesse. O nosso segredo? <strong>Os primeiros animatrónicos verdadeiramente inteligentes do mundo.</strong>',
+      about_p2:'Ao contrário de tudo o que existia no mercado, os nossos animatrónicos podem circular livremente pelo restaurante, manter conversas, jogar, abrir portas, cantar, dançar e interagir genuinamente com cada convidado. Movidos por I.A. proprietária desenvolvida exclusivamente pela Foxy\'s Entertainment, não são apenas máquinas — são família.',
+      stat1:'Ano de Fundação', stat2:'Localizações Mundiais', stat3:'Personagens Originais', stat4:'Memórias Criadas',
+      anim_label:'As Estrelas do Espectáculo', anim_title:'Equipa!',
+      anim_desc:'Movidos por I.A. de ponta, os nossos quatro incríveis animatrónicos são o coração e alma do Foxy\'s Palace. Não são artistas — são os teus novos melhores amigos.',
+      foxy_tag:'Estrela Principal', foxy_role:'🎤 Cantor & Animador de Festas',
+      foxy_desc:'O rosto do Foxy\'s Palace! Esta raposa azul e roxa cheia de energia está sempre no centro da ação — a contar piadas, a liderar canções e a fazer cada convidado sentir-se a estrela da festa. Há adultos na festa? O Foxy muda de registo e mantém os crescidos entretidos também!',
+      foxy_pill2:'🎉 Animador de Festas',
+      hopps_tag:'Rainha dos Jogos', hopps_role:'🥁 Baterista & Especialista em Jogos',
+      hopps_desc:'Esta coelha verde imparável não para um segundo! Às escondidas, apanhada, futebol, basquete — a Hopps organiza todos os jogos e garante que nenhuma criança fica de fora. Ela e o Foxy são um duo imbatível quando se trata de manter as crianças completamente animadas.',
+      hopps_pill2:'🏃 Jogos Activos',
+      draccon_tag:'O Fixe', draccon_role:'🎸 Guitarrista & Mestre dos Truques',
+      draccon_desc:'O Draccon acha que é o dragão mais fixe do universo — e honestamente? Pode ter razão. Este exibicionista faz os truques mais impressionantes e rasga na guitarra eléctrica deixando as crianças de boca aberta. A Penny está sempre por perto para garantir que ele não vai longe <em>demais</em>.',
+      draccon_pill3:'😎 Radical',
+      penny_tag:'O Coração', penny_role:'📖 Contadora de Histórias & Cuidadora',
+      penny_desc:'A membro mais calma e gentil da equipa, esta panda adorável é quem adormece as crianças cansadas, conta histórias ao deitar, faz trabalhos manuais e providencia o equilíbrio perfeito ao caos do Draccon. Quando as coisas ficam selvagens demais, a voz suave da Penny traz a paz de volta.',
+      penny_pill1:'📖 Histórias', penny_pill2:'🎨 Trabalhos Manuais',
+      exp_label:'Explora o Palácio', exp_title:'Aventura',
+      exp_desc:'O Foxy\'s Palace é mais do que um restaurante — é um mundo inteiro. Com 9 áreas únicas para explorar, nunca há duas visitas iguais.',
+      area1_name:'Zona de Teste VR', area1_desc:'Entra no futuro! Experimenta as nossas experiências exclusivas de Realidade Virtual — as únicas do género disponíveis ao público.',
+      area2_name:'Arcades', area2_desc:'Dezenas de máquinas de arcade, jogos de feira clássicos e contadores de prémios. Ganha a sério e troca os teus bilhetes por recompensas épicas!',
+      area3_name:'Mini Campo Desportivo', area3_desc:'Um mini campo completo de futebol e basquete. A Hopps é a tua treinadora — e ela joga para ganhar. A tua equipa consegue vencê-la?',
+      area4_name:'Cantinho do Descanso', area4_desc:'Almofadas macias, luz aconchegante e a Penny a contar histórias. O sítio perfeito quando os pequenos aventureiros precisam de recarregar energias.',
+      area5_name:'Salão do Palco Principal', area5_desc:'O coração do Palácio! A banda completa de animatrónicos faz espectáculos ao vivo durante todo o dia. É aqui que a magia acontece.',
+      area6_name:'Sala de Serviços', area6_desc:'A nossa equipa dedicada está sempre disponível para garantir que a tua festa corre na perfeição. O planeamento de festas privadas acontece mesmo aqui.',
+      area7_name:'Cozinha', area7_desc:'Comida fresca preparada no local para cada festa. De bolos de aniversário a pizzas e buffets de festa — os nossos chefs tratam de tudo.',
+      area8_name:'Hall de Entrada', area8_desc:'A tua chegada épica começa aqui. Recebe a tua pulseira, conhece a equipa e prepara-te para uma experiência inesquecível.',
+      area9_name:'Sala de Segurança', area9_desc:'A segurança dos teus filhos é a nossa prioridade máxima. A nossa segurança monitorizada 24/7 garante que todos os convidados estão seguros durante toda a visita.',
+      gallery_label:'Galeria',
+      tick_label:'Preços & Pacotes', tick_title:'Aventura',
+      tick_desc:'Todos os pacotes incluem acesso total ao espectáculo de animatrónicos, a todas as áreas de diversão e à nossa cozinha mundialmente famosa. A única questão é: quão lendário queres que seja?',
+      t1_name:'Entrada Clássica', t1_sub:'Perfeito para uma visita casual', t1_per:'/ por criança',
+      t1_p1:'Acesso total a todas as áreas de diversão', t1_p2:'Espectáculo de animatrónicos ao vivo (3x por dia)', t1_p3:'Fichas de arcade incluídas (x20)', t1_p4:'Pack de boas-vindas com snacks', t1_cta:'Encontrar Localização',
+      t2_badge:'⭐ Mais Popular', t2_name:'Birthday Royale', t2_sub:'A experiência de aniversário completa', t2_per:'/ por festa (até 10 crianças)',
+      t2_p1:'Sala de festa privada reservada por 3 horas', t2_p2:'Espectáculo de animatrónicos dedicado só a ti', t2_p3:'Bolo de aniversário personalizado da nossa cozinha',
+      t2_p4:'Fichas de arcade ilimitadas para todos os convidados', t2_p5:'Acesso à Zona VR (1 sessão por criança)', t2_p6:'Coroa de aniversário & saco de prendas para o aniversariante', t2_p7:'Fotos profissionais da festa com as personagens', t2_cta:'Reservar Este Pacote!',
+      t3_name:'Palace Royale', t3_sub:'Para o verdadeiramente inesquecível', t3_per:'/ por festa (até 25 convidados)',
+      t3_p1:'Uso exclusivo de todo o Palácio por 4 horas', t3_p2:'Os 4 animatrónicos dedicados ao teu evento', t3_p3:'Jantar completo com catering para todos os convidados',
+      t3_p4:'Espectáculo personalizado à volta da criança aniversariante', t3_p5:'Tudo ilimitado — arcade, VR, desporto', t3_p6:'Recordação personalizada para cada convidado', t3_p7:'Pacote de entretenimento para adultos incluído', t3_cta:'Contacta-nos',
+      loc_label:'Encontra-nos', loc_title:'Original', loc_desc:'A lendária sede que começou tudo. O Foxy\'s Palace #001 — onde cada memória foi criada pela primeira vez.',
+      map_addr_title:'📍 Morada', map_addr:'247 Foxy Boulevard<br/>Distrito de Entretenimento<br/>Springdale, CA 90210',
+      map_hours_title:'🕐 Horário de Funcionamento', map_h1:'Segunda – Sexta: 10h – 21h', map_h2:'Sábado: 9h – 23h', map_h3:'Domingo: 10h – 20h', map_h4:'Feriados: Horário especial aplicável',
+      map_res_title:'📞 Reservas', map_res:'As reservas de festa devem ser feitas com pelo menos 7 dias de antecedência. Entrada directa disponível para bilhetes Clássicos sujeita a disponibilidade.',
+      map_other_title:'🌍 Outras Localizações',
+      footer_brand:'Uma propriedade da Foxy\'s Entertainment. A criar momentos mágicos através do poder da tecnologia e imaginação desde 1993.',
+      footer_col1:'Visitar', footer_col2:'Personagens', footer_col3:'Festas',
+      footer_l1:'A Nossa História', footer_l2:'O Palácio', footer_l3:'Localizações', footer_l4:'Horário de Funcionamento',
+      footer_copy:'© 1993 <strong>Foxy\'s Entertainment Inc.</strong> Todos os direitos reservados. Todas as personagens animatrónicas são propriedades registadas da Foxy\'s Entertainment.',
+    }
+  };
+
+  let currentLang = 'en';
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang === 'pt' ? 'pt-PT' : 'en';
+    document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+    document.getElementById('btnPT').classList.toggle('active', lang === 'pt');
+
+    // Update all text nodes
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (T[lang][key] !== undefined) el.textContent = T[lang][key];
+    });
+    // Update HTML nodes (for ones with <strong>, <br>, <em> etc.)
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if (T[lang][key] !== undefined) el.innerHTML = T[lang][key];
+    });
+  }
+  window.setLang = setLang;
 
   // Generate twinkling stars
   const starsContainer = document.getElementById('stars');
