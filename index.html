@@ -707,6 +707,7 @@
       border: 1.5px solid rgba(255,255,255,.07);
       transition: transform .3s, box-shadow .3s, border-color .3s;
       position: relative;
+      cursor: pointer;
     }
     .anim-card:hover {
       transform: translateY(-10px);
@@ -720,9 +721,10 @@
     .anim-card[data-char="penny"]  { --card-accent: var(--pink); }
 
     .anim-img-wrap {
-      height: 280px;
+      height: 320px;
       position: relative;
       overflow: hidden;
+      background: #0a0614;
     }
     .anim-img-wrap::after {
       content: '';
@@ -732,10 +734,169 @@
     }
     .anim-img-wrap img {
       width: 100%; height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      object-position: center bottom;
       transition: transform .4s;
     }
     .anim-card:hover .anim-img-wrap img { transform: scale(1.05); }
+
+    /* "Ver mais" hint on hover */
+    .anim-hint {
+      position: absolute; bottom: 14px; right: 14px;
+      background: var(--card-accent);
+      color: #fff;
+      font-size: .65rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 20px;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity .25s, transform .25s;
+    }
+    .anim-card:hover .anim-hint { opacity: 1; transform: translateY(0); }
+
+    /* ══════════════════════════════════════════
+       ANIMATRONIC MODAL
+    ══════════════════════════════════════════ */
+    .anim-modal-overlay {
+      position: fixed; inset: 0; z-index: 10000;
+      background: rgba(0,0,0,.85);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    .anim-modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .anim-modal {
+      background: var(--bg-card);
+      border-radius: 28px;
+      border: 1.5px solid var(--modal-accent, var(--purple-light));
+      box-shadow: 0 30px 100px rgba(0,0,0,.7), 0 0 0 1px var(--modal-accent, var(--purple-light));
+      max-width: 820px; width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      transform: scale(.92) translateY(20px);
+      transition: transform .35s cubic-bezier(.22,1,.36,1);
+      position: relative;
+    }
+    .anim-modal-overlay.open .anim-modal {
+      transform: scale(1) translateY(0);
+    }
+    @media(max-width:640px){
+      .anim-modal { grid-template-columns: 1fr; }
+    }
+
+    .anim-modal-img {
+      background: #0a0614;
+      border-radius: 26px 0 0 26px;
+      overflow: hidden;
+      display: flex; align-items: flex-end; justify-content: center;
+      min-height: 380px;
+    }
+    @media(max-width:640px){
+      .anim-modal-img { border-radius: 26px 26px 0 0; min-height: 260px; }
+    }
+    .anim-modal-img img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      object-position: center bottom;
+    }
+
+    .anim-modal-body {
+      padding: 36px 32px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .modal-close {
+      position: absolute; top: 16px; right: 16px;
+      background: rgba(255,255,255,.08);
+      border: none; color: var(--text-muted);
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s, color .2s;
+      z-index: 5;
+    }
+    .modal-close:hover { background: rgba(255,255,255,.15); color: #fff; }
+
+    .modal-char-tag {
+      display: inline-block;
+      background: var(--modal-accent, var(--purple-light));
+      color: #fff;
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      width: fit-content;
+    }
+    .modal-name {
+      font-family: 'Fredoka One', cursive;
+      font-size: 2.8rem;
+      line-height: 1;
+    }
+    .modal-role {
+      font-size: .8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--modal-accent, var(--purple-light));
+    }
+    .modal-divider {
+      width: 50px; height: 3px;
+      background: var(--modal-accent, var(--purple-light));
+      border-radius: 3px;
+    }
+    .modal-desc {
+      font-size: .95rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .modal-stats {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      margin-top: 4px;
+    }
+    .modal-stat {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 12px;
+      padding: 10px 16px;
+      text-align: center;
+      flex: 1; min-width: 80px;
+    }
+    .modal-stat-val {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.4rem;
+      color: var(--modal-accent, var(--purple-light));
+    }
+    .modal-stat-lbl {
+      font-size: .65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-muted);
+    }
+    .modal-tags {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .modal-tag-pill {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--text-muted);
+      font-size: .75rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
     /* IMAGE SLOTS:
        foxy.png    — full body or bust of Foxy the blue/purple fox
        hopps.png   — full body or bust of Hopps the green rabbit
@@ -1363,8 +1524,7 @@
 
     <div class="anim-grid">
 
-      <!-- FOXY -->
-      <div class="anim-card reveal" data-char="foxy">
+      <div class="anim-card reveal" data-char="foxy" onclick="openModal('foxy')">
         <div class="anim-img-wrap">
           <img src="foxy.png" alt="Foxy the Fox"/>
           <span class="anim-tag" data-i18n="foxy_tag">Lead Star</span>
@@ -1381,10 +1541,11 @@
             <span class="anim-tag-pill">💙 Blue & Purple</span>
           </div>
         </div>
+        <div class="anim-hint" data-i18n="hint_more">+ Ver Mais</div>
       </div>
 
       <!-- HOPPS -->
-      <div class="anim-card reveal" data-char="hopps">
+      <div class="anim-card reveal" data-char="hopps" onclick="openModal('hopps')">
         <div class="anim-img-wrap">
           <img src="hopps.png" alt="Hopps the Rabbit"/>
           <span class="anim-tag" data-i18n="hopps_tag">Games Queen</span>
@@ -1401,10 +1562,11 @@
             <span class="anim-tag-pill">💚 Green</span>
           </div>
         </div>
+        <div class="anim-hint" data-i18n="hint_more">+ Ver Mais</div>
       </div>
 
       <!-- DRACCON -->
-      <div class="anim-card reveal" data-char="draccon">
+      <div class="anim-card reveal" data-char="draccon" onclick="openModal('draccon')">
         <div class="anim-img-wrap">
           <img src="draccon.png" alt="Draccon the Dragon"/>
           <span class="anim-tag" data-i18n="draccon_tag">The Cool One</span>
@@ -1421,10 +1583,11 @@
             <span class="anim-tag-pill" data-i18n="draccon_pill3">😎 Radical</span>
           </div>
         </div>
+        <div class="anim-hint" data-i18n="hint_more">+ Ver Mais</div>
       </div>
 
       <!-- PENNY -->
-      <div class="anim-card reveal" data-char="penny">
+      <div class="anim-card reveal" data-char="penny" onclick="openModal('penny')">
         <div class="anim-img-wrap">
           <img src="penny.png" alt="Penny the Panda"/>
           <span class="anim-tag" data-i18n="penny_tag">The Heart</span>
@@ -1441,6 +1604,7 @@
             <span class="anim-tag-pill">🐼 Panda</span>
           </div>
         </div>
+        <div class="anim-hint" data-i18n="hint_more">+ Ver Mais</div>
       </div>
 
     </div>
@@ -1736,6 +1900,25 @@
   </div>
 </section>
 
+<!-- ═══════════════════ ANIMATRONIC MODAL ═══════════════════ -->
+<div class="anim-modal-overlay" id="animModal" onclick="closeModalOutside(event)">
+  <div class="anim-modal" id="animModalBox">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="anim-modal-img">
+      <img id="modalImg" src="" alt=""/>
+    </div>
+    <div class="anim-modal-body">
+      <div class="modal-char-tag" id="modalTag"></div>
+      <div class="modal-name" id="modalName"></div>
+      <div class="modal-role" id="modalRole"></div>
+      <div class="modal-divider"></div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-stats" id="modalStats"></div>
+      <div class="modal-tags" id="modalTags"></div>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════════════ FOOTER ═══════════════════ -->
 <footer>
   <div class="footer-inner">
@@ -1781,6 +1964,125 @@
 </footer>
 
 <script>
+  // ── MODAL DATA ────────────────────────────────────────
+  const CHARS = {
+    foxy: {
+      accent: 'var(--purple-light)',
+      img: 'foxy.png',
+      tag: { en:'Lead Star', pt:'Estrela Principal' },
+      name: 'Foxy',
+      role: { en:'🎤 Singer & Party Leader', pt:'🎤 Cantor & Animador de Festas' },
+      desc: {
+        en: "The face of Foxy's Palace! This energetic blue-and-purple fox is always at the center of the action — cracking jokes, leading songs, and making every single guest feel like the star of the show. Got adults at the party? Foxy switches gears and keeps the grown-ups entertained too! He's the glue that holds the whole experience together.",
+        pt: "O rosto do Foxy's Palace! Esta raposa azul e roxa cheia de energia está sempre no centro da ação — a contar piadas, a liderar canções e a fazer cada convidado sentir-se a estrela da festa. Há adultos na festa? O Foxy muda de registo e mantém os crescidos entretidos também! É ele que une toda a experiência."
+      },
+      stats: [
+        { val:'#1',  lbl:{ en:'Character', pt:'Personagem' } },
+        { val:'🎤',  lbl:{ en:'Sings',     pt:'Canta' } },
+        { val:'A.I.', lbl:{ en:'Powered',  pt:'Movido por' } },
+        { val:'∞',   lbl:{ en:'Energy',    pt:'Energia' } },
+      ],
+      tags: ['🎤 Vocals','🎉 Party Host','💙 Blue & Purple','🦊 Fox','⭐ Leader'],
+    },
+    hopps: {
+      accent: 'var(--green)',
+      img: 'hopps.png',
+      tag: { en:'Games Queen', pt:'Rainha dos Jogos' },
+      name: 'Hopps',
+      role: { en:'🥁 Drummer & Games Expert', pt:'🥁 Baterista & Especialista em Jogos' },
+      desc: {
+        en: "This fierce green bunny doesn't sit still for a second! Hide-and-seek, tag, football, basketball — Hopps organises every game and makes sure no child gets left out. She and Foxy are an unstoppable duo when it comes to keeping the kids absolutely buzzing with excitement. Her energy is completely contagious!",
+        pt: "Esta coelha verde imparável não para um segundo! Às escondidas, apanhada, futebol, basquete — a Hopps organiza todos os jogos e garante que nenhuma criança fica de fora. Ela e o Foxy são um duo imbatível quando se trata de manter as crianças completamente animadas. A sua energia é completamente contagiante!"
+      },
+      stats: [
+        { val:'🥁',  lbl:{ en:'Drums',    pt:'Bateria' } },
+        { val:'10+', lbl:{ en:'Games',    pt:'Jogos' } },
+        { val:'💚',  lbl:{ en:'Green',    pt:'Verde' } },
+        { val:'⚡',  lbl:{ en:'Speed',    pt:'Velocidade' } },
+      ],
+      tags: ['🥁 Drums','🏃 Active Games','💚 Green','🐰 Rabbit','🏆 Competitive'],
+    },
+    draccon: {
+      accent: 'var(--teal)',
+      img: 'draccon.png',
+      tag: { en:'The Cool One', pt:'O Fixe' },
+      name: 'Draccon',
+      role: { en:'🎸 Guitarist & Stunt Master', pt:'🎸 Guitarrista & Mestre dos Truques' },
+      desc: {
+        en: "Draccon thinks he's the coolest dragon in the universe — and honestly? He might be right. This fire-breathing showoff pulls off the most jaw-dropping stunts and shreds on his electric guitar leaving kids completely stunned. Penny's always nearby to make sure he doesn't go too far — but secretly she's impressed too.",
+        pt: "O Draccon acha que é o dragão mais fixe do universo — e honestamente? Pode ter razão. Este exibicionista faz os truques mais impressionantes e rasga na guitarra eléctrica deixando as crianças de boca aberta. A Penny está sempre por perto para garantir que ele não vai longe demais — mas secretamente ela também fica impressionada."
+      },
+      stats: [
+        { val:'🎸',  lbl:{ en:'Guitar',   pt:'Guitarra' } },
+        { val:'🔥',  lbl:{ en:'Fire',     pt:'Fogo' } },
+        { val:'😎',  lbl:{ en:'Radical',  pt:'Radical' } },
+        { val:'💥',  lbl:{ en:'Stunts',   pt:'Truques' } },
+      ],
+      tags: ['🎸 Guitar','🔥 Stunts','😎 Radical','🐉 Dragon','⚡ Showoff'],
+    },
+    penny: {
+      accent: 'var(--pink)',
+      img: 'penny.png',
+      tag: { en:'The Heart', pt:'O Coração' },
+      name: 'Penny',
+      role: { en:'📖 Storyteller & Caretaker', pt:'📖 Contadora de Histórias & Cuidadora' },
+      desc: {
+        en: "The calmest and most gentle member of the team, this adorable panda is the one who tucks in tired little ones, reads bedtime stories, does arts & crafts, and provides the perfect balance to Draccon's chaos. When things get too wild, Penny's soft voice brings the peace right back. She also keeps a close eye on Draccon!",
+        pt: "A membro mais calma e gentil da equipa, esta panda adorável é quem adormece as crianças cansadas, conta histórias ao deitar, faz trabalhos manuais e providencia o equilíbrio perfeito ao caos do Draccon. Quando as coisas ficam selvagens demais, a voz suave da Penny traz a paz de volta. Ela também vigia o Draccon de perto!"
+      },
+      stats: [
+        { val:'📖', lbl:{ en:'Stories',  pt:'Histórias' } },
+        { val:'🎨', lbl:{ en:'Crafts',   pt:'Manuais' } },
+        { val:'😴', lbl:{ en:'Naps',     pt:'Sestas' } },
+        { val:'☮️', lbl:{ en:'Peace',    pt:'Paz' } },
+      ],
+      tags: ['📖 Stories','🎨 Crafts','🐼 Panda','💗 Gentle','🌙 Calm'],
+    },
+  };
+
+  function openModal(char) {
+    const d = CHARS[char];
+    const lang = currentLang;
+    const overlay = document.getElementById('animModal');
+    const box = document.getElementById('animModalBox');
+
+    box.style.setProperty('--modal-accent', d.accent);
+    document.getElementById('modalImg').src = d.img;
+    document.getElementById('modalImg').alt = d.name;
+    document.getElementById('modalTag').textContent = d.tag[lang];
+    document.getElementById('modalName').textContent = d.name;
+    document.getElementById('modalRole').textContent = d.role[lang];
+    document.getElementById('modalDesc').textContent = d.desc[lang];
+
+    const statsEl = document.getElementById('modalStats');
+    statsEl.innerHTML = d.stats.map(s => `
+      <div class="modal-stat">
+        <div class="modal-stat-val">${s.val}</div>
+        <div class="modal-stat-lbl">${s.lbl[lang]}</div>
+      </div>`).join('');
+
+    const tagsEl = document.getElementById('modalTags');
+    tagsEl.innerHTML = d.tags.map(t => `<span class="modal-tag-pill">${t}</span>`).join('');
+
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('animModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('animModal')) closeModal();
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  window.openModal = openModal;
+  window.closeModal = closeModal;
+  window.closeModalOutside = closeModalOutside;
+
   // ── INTRO LOGIC ──────────────────────────────────────
   document.body.classList.add('intro-active');
 
@@ -1950,6 +2252,7 @@
       footer_col1:'Visit', footer_col2:'Characters', footer_col3:'Parties',
       footer_l1:'Our Story', footer_l2:'The Palace', footer_l3:'Locations', footer_l4:'Opening Hours',
       footer_copy:'© 1993 <strong>Foxy\'s Entertainment Inc.</strong> All rights reserved. All animatronic characters are trademarked properties of Foxy\'s Entertainment.',
+      hint_more:'+ More Info',
     },
     pt: {
       nav_about:'Sobre Nós', nav_chars:'Personagens', nav_exp:'Experiência',
@@ -2008,6 +2311,7 @@
       footer_col1:'Visitar', footer_col2:'Personagens', footer_col3:'Festas',
       footer_l1:'A Nossa História', footer_l2:'O Palácio', footer_l3:'Localizações', footer_l4:'Horário de Funcionamento',
       footer_copy:'© 1993 <strong>Foxy\'s Entertainment Inc.</strong> Todos os direitos reservados. Todas as personagens animatrónicas são propriedades registadas da Foxy\'s Entertainment.',
+      hint_more:'+ Ver Mais',
     }
   };
 
