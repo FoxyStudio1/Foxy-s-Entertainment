@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Foxy's Palace — Official Shop</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --purple:#5B2D8E; --purple-light:#7B4DB8;
+      --orange:#F97316; --orange-light:#FBA94C;
+      --green:#22C55E;  --pink:#EC4899; --teal:#0D9488;
+      --bg-dark:#0F0A1E; --bg-card:#1A1133;
+      --text:#F3EEFF;   --text-muted:#A990D8;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg-dark);color:var(--text);font-family:'Nunito',sans-serif;overflow-x:hidden}
+    ::-webkit-scrollbar{width:8px}
+    ::-webkit-scrollbar-track{background:var(--bg-dark)}
+    ::-webkit-scrollbar-thumb{background:var(--purple);border-radius:4px}
+
+    /* ── NAV ── */
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 48px;height:70px;
+      background:rgba(15,10,30,.88);backdrop-filter:blur(12px);
+      border-bottom:2px solid rgba(123,77,184,.35);
+    }
+    .nav-logo{display:flex;align-items:center;gap:10px;font-family:'Fredoka One',cursive;font-size:1.5rem;color:var(--orange);text-decoration:none}
+    .nav-logo img{height:44px;width:44px;object-fit:contain}
+    .nav-links{display:flex;gap:28px;list-style:none;align-items:center}
+    .nav-links a{color:var(--text-muted);text-decoration:none;font-weight:700;font-size:.88rem;letter-spacing:.05em;text-transform:uppercase;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--orange)}
+    .nav-cart-btn{
+      background:var(--orange);color:#fff;border:none;
+      border-radius:30px;padding:8px 20px;
+      font-family:'Fredoka One',cursive;font-size:.95rem;
+      cursor:pointer;display:flex;align-items:center;gap:8px;
+      transition:background .2s,transform .15s;
+    }
+    .nav-cart-btn:hover{background:var(--orange-light);transform:scale(1.04)}
+    .cart-count{
+      background:#fff;color:var(--orange);
+      border-radius:50%;width:20px;height:20px;
+      display:flex;align-items:center;justify-content:center;
+      font-size:.72rem;font-weight:900;
+    }
+
+    /* ── HERO ── */
+    .shop-hero{
+      padding:120px 48px 60px;
+      text-align:center;
+      background:radial-gradient(ellipse 70% 50% at 50% 30%,rgba(91,45,142,.4) 0%,transparent 70%);
+    }
+    .shop-hero-label{
+      display:inline-block;font-size:.72rem;font-weight:800;
+      letter-spacing:.2em;text-transform:uppercase;
+      color:var(--orange);margin-bottom:14px;
+      border:1px solid rgba(249,115,22,.3);padding:5px 16px;border-radius:20px;
+    }
+    .shop-hero h1{font-family:'Fredoka One',cursive;font-size:clamp(2.5rem,6vw,4.5rem);margin-bottom:14px}
+    .shop-hero h1 span{color:var(--orange)}
+    .shop-hero p{color:var(--text-muted);font-size:1.05rem;max-width:550px;margin:0 auto}
+
+    /* hidden lore text — barely visible */
+    .shop-hero .hidden-lore{
+      margin-top:6px;
+      font-size:.55rem;
+      color:rgba(255,255,255,.04);
+      letter-spacing:.05em;
+      user-select:none;
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-bar{
+      display:flex;justify-content:center;gap:12px;flex-wrap:wrap;
+      padding:20px 48px 0;
+    }
+    .filter-btn{
+      background:rgba(255,255,255,.05);
+      border:1.5px solid rgba(255,255,255,.1);
+      color:var(--text-muted);border-radius:30px;
+      padding:8px 22px;font-family:'Nunito',sans-serif;
+      font-weight:800;font-size:.82rem;letter-spacing:.05em;
+      text-transform:uppercase;cursor:pointer;
+      transition:all .2s;
+    }
+    .filter-btn:hover,.filter-btn.active{
+      background:var(--orange);border-color:var(--orange);color:#fff;
+    }
+
+    /* ── PRODUCTS GRID ── */
+    .products-section{max-width:1200px;margin:0 auto;padding:60px 24px 100px}
+    .products-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+      gap:28px;
+      margin-top:40px;
+    }
+
+    /* ── PRODUCT CARD ── */
+    .product-card{
+      background:var(--bg-card);
+      border:1.5px solid rgba(255,255,255,.07);
+      border-radius:22px;overflow:hidden;
+      transition:transform .3s,box-shadow .3s,border-color .3s;
+      cursor:pointer;
+      position:relative;
+    }
+    .product-card:hover{
+      transform:translateY(-8px);
+      box-shadow:0 20px 60px rgba(0,0,0,.5);
+      border-color:rgba(249,115,22,.35);
+    }
+    .product-img{
+      height:260px;background:#0d0820;
+      display:flex;align-items:center;justify-content:center;
+      position:relative;overflow:hidden;
+    }
+    .product-img img{
+      width:100%;height:100%;object-fit:contain;
+      padding:20px;
+      transition:transform .4s;
+    }
+    .product-card:hover .product-img img{transform:scale(1.06)}
+
+    /* Secret overlay on product 4 & 5 */
+    .product-card.secret .product-img::after{
+      content:'';
+      position:absolute;inset:0;
+      background:rgba(0,0,0,0);
+      transition:background .3s;
+    }
+    .product-card.secret:hover .product-img::after{
+      background:rgba(0,0,0,.0);
+    }
+    /* Subliminal message hidden in image area - product 3 */
+    .subliminal{
+      position:absolute;bottom:6px;left:50%;transform:translateX(-50%);
+      font-size:.4rem;color:rgba(255,0,0,.12);
+      white-space:nowrap;letter-spacing:.08em;
+      pointer-events:none;font-weight:900;
+    }
+
+    .product-badge{
+      position:absolute;top:12px;left:12px;
+      background:var(--orange);color:#fff;
+      font-size:.65rem;font-weight:900;letter-spacing:.1em;
+      text-transform:uppercase;padding:4px 12px;border-radius:20px;
+      z-index:1;
+    }
+    .product-badge.new{background:var(--green)}
+    .product-badge.limited{background:var(--pink)}
+    .product-badge.sold-out{background:#444;color:#888}
+
+    /* Hidden "?" badge on product 5 */
+    .mystery-badge{
+      position:absolute;top:12px;right:12px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.1);
+      color:rgba(255,255,255,.2);
+      font-size:.75rem;font-weight:900;
+      width:26px;height:26px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      z-index:1;
+      transition:color .3s,background .3s;
+    }
+    .product-card:hover .mystery-badge{
+      color:var(--orange);background:rgba(249,115,22,.15);
+      border-color:var(--orange);
+    }
+
+    .product-body{padding:20px 22px 22px}
+    .product-char{
+      font-size:.68rem;font-weight:800;letter-spacing:.14em;
+      text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;
+    }
+    .product-name{
+      font-family:'Fredoka One',cursive;font-size:1.4rem;
+      margin-bottom:8px;line-height:1.1;
+    }
+    .product-desc{
+      font-size:.85rem;color:var(--text-muted);
+      line-height:1.55;margin-bottom:16px;
+    }
+
+    /* Hidden desc that appears on card hover - product 2 */
+    .product-hidden-desc{
+      display:none;font-size:.7rem;
+      color:rgba(255,60,60,.5);
+      margin-top:6px;line-height:1.4;
+    }
+    .product-card:hover .product-hidden-desc{display:block}
+
+    .product-footer{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .product-price{
+      font-family:'Fredoka One',cursive;font-size:1.8rem;
+      color:var(--orange);
+    }
+    .product-price .cents{font-size:1rem}
+    .add-cart-btn{
+      background:var(--orange);color:#fff;border:none;
+      border-radius:50px;padding:9px 20px;
+      font-family:'Fredoka One',cursive;font-size:.9rem;
+      cursor:pointer;
+      transition:background .2s,transform .15s,box-shadow .2s;
+      box-shadow:0 4px 16px rgba(249,115,22,.3);
+    }
+    .add-cart-btn:hover{background:var(--orange-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(249,115,22,.45)}
+    .add-cart-btn:disabled{background:#333;color:#666;cursor:not-allowed;box-shadow:none;transform:none}
+
+    /* ── CART SIDEBAR ── */
+    .cart-overlay{
+      position:fixed;inset:0;z-index:9000;
+      background:rgba(0,0,0,.7);backdrop-filter:blur(6px);
+      opacity:0;pointer-events:none;transition:opacity .3s;
+    }
+    .cart-overlay.open{opacity:1;pointer-events:all}
+    .cart-sidebar{
+      position:fixed;top:0;right:0;bottom:0;
+      width:min(420px,95vw);z-index:9001;
+      background:var(--bg-card);
+      border-left:1.5px solid rgba(255,255,255,.08);
+      display:flex;flex-direction:column;
+      transform:translateX(100%);
+      transition:transform .35s cubic-bezier(.22,1,.36,1);
+      box-shadow:-20px 0 60px rgba(0,0,0,.6);
+    }
+    .cart-sidebar.open{transform:translateX(0)}
+
+    .cart-header{
+      padding:24px;border-bottom:1px solid rgba(255,255,255,.07);
+      display:flex;align-items:center;justify-content:space-between;
+    }
+    .cart-header h2{font-family:'Fredoka One',cursive;font-size:1.6rem}
+    .cart-close-btn{
+      background:rgba(255,255,255,.07);border:none;color:var(--text-muted);
+      width:36px;height:36px;border-radius:50%;font-size:1.1rem;
+      cursor:pointer;display:flex;align-items:center;justify-content:center;
+      transition:background .2s,color .2s;
+    }
+    .cart-close-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+
+    .cart-items{flex:1;overflow-y:auto;padding:16px 24px}
+    .cart-empty{
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      height:100%;gap:14px;color:var(--text-muted);text-align:center;
+    }
+    .cart-empty-icon{font-size:3rem}
+    .cart-empty p{font-size:.95rem}
+
+    .cart-item{
+      display:flex;gap:14px;align-items:flex-start;
+      padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .cart-item-img{
+      width:64px;height:64px;border-radius:12px;
+      background:#0d0820;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;overflow:hidden;
+    }
+    .cart-item-img img{width:100%;height:100%;object-fit:contain;padding:6px}
+    .cart-item-info{flex:1}
+    .cart-item-name{font-family:'Fredoka One',cursive;font-size:1rem;margin-bottom:4px}
+    .cart-item-qty{
+      display:flex;align-items:center;gap:10px;margin-top:8px;
+    }
+    .qty-btn{
+      background:rgba(255,255,255,.07);border:none;color:var(--text);
+      width:28px;height:28px;border-radius:8px;cursor:pointer;font-size:1rem;
+      display:flex;align-items:center;justify-content:center;
+      transition:background .2s;
+    }
+    .qty-btn:hover{background:rgba(255,255,255,.15)}
+    .qty-num{font-weight:800;min-width:20px;text-align:center}
+    .cart-item-price{
+      font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--orange);
+      flex-shrink:0;
+    }
+    .cart-item-remove{
+      background:none;border:none;color:rgba(255,100,100,.4);
+      cursor:pointer;font-size:.8rem;margin-top:2px;
+      transition:color .2s;
+    }
+    .cart-item-remove:hover{color:rgba(255,100,100,.8)}
+
+    .cart-footer{
+      padding:20px 24px;border-top:1px solid rgba(255,255,255,.07);
+    }
+    .cart-total{
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:16px;
+    }
+    .cart-total span:first-child{font-weight:800;color:var(--text-muted);font-size:.85rem;text-transform:uppercase;letter-spacing:.08em}
+    .cart-total-price{font-family:'Fredoka One',cursive;font-size:2rem;color:var(--orange)}
+    .checkout-btn{
+      width:100%;background:var(--orange);color:#fff;border:none;
+      border-radius:50px;padding:14px;
+      font-family:'Fredoka One',cursive;font-size:1.1rem;
+      cursor:pointer;box-shadow:0 6px 24px rgba(249,115,22,.35);
+      transition:transform .2s,box-shadow .2s;
+    }
+    .checkout-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(249,115,22,.5)}
+    .checkout-btn:disabled{background:#333;color:#666;cursor:not-allowed;box-shadow:none;transform:none}
+
+    /* ── CHECKOUT MODAL ── */
+    .checkout-overlay{
+      position:fixed;inset:0;z-index:9500;
+      background:rgba(0,0,0,.9);backdrop-filter:blur(12px);
+      display:flex;align-items:center;justify-content:center;
+      padding:20px;
+      opacity:0;pointer-events:none;transition:opacity .3s;
+    }
+    .checkout-overlay.open{opacity:1;pointer-events:all}
+    .checkout-box{
+      background:var(--bg-card);border-radius:28px;
+      border:1.5px solid rgba(249,115,22,.3);
+      box-shadow:0 30px 80px rgba(0,0,0,.7);
+      max-width:560px;width:100%;
+      max-height:90vh;overflow-y:auto;
+      padding:40px;
+      transform:scale(.92) translateY(20px);
+      transition:transform .35s cubic-bezier(.22,1,.36,1);
+      position:relative;
+    }
+    .checkout-overlay.open .checkout-box{transform:scale(1) translateY(0)}
+    .checkout-close{
+      position:absolute;top:16px;right:16px;
+      background:rgba(255,255,255,.07);border:none;color:var(--text-muted);
+      width:36px;height:36px;border-radius:50%;font-size:1.1rem;
+      cursor:pointer;display:flex;align-items:center;justify-content:center;
+      transition:background .2s,color .2s;
+    }
+    .checkout-close:hover{background:rgba(255,255,255,.15);color:#fff}
+
+    .checkout-title{font-family:'Fredoka One',cursive;font-size:1.8rem;margin-bottom:6px}
+    .checkout-sub{color:var(--text-muted);font-size:.9rem;margin-bottom:28px}
+
+    .checkout-fields{display:flex;flex-direction:column;gap:14px}
+    .checkout-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .checkout-field label{
+      display:block;font-size:.7rem;font-weight:800;
+      text-transform:uppercase;letter-spacing:.1em;
+      color:var(--text-muted);margin-bottom:7px;
+    }
+    .checkout-field input,.checkout-field select{
+      width:100%;background:rgba(255,255,255,.05);
+      border:1.5px solid rgba(255,255,255,.1);border-radius:12px;
+      color:var(--text);font-family:'Nunito',sans-serif;
+      font-size:.93rem;font-weight:600;padding:11px 14px;
+      outline:none;transition:border-color .2s;
+      -webkit-appearance:none;color-scheme:dark;
+    }
+    .checkout-field input:focus,.checkout-field select:focus{border-color:var(--orange)}
+
+    .checkout-divider{
+      display:flex;align-items:center;gap:12px;
+      color:var(--text-muted);font-size:.75rem;font-weight:700;
+      text-transform:uppercase;letter-spacing:.1em;margin:8px 0;
+    }
+    .checkout-divider::before,.checkout-divider::after{
+      content:'';flex:1;height:1px;background:rgba(255,255,255,.08);
+    }
+
+    .order-summary{
+      background:rgba(255,255,255,.03);border-radius:14px;
+      border:1px solid rgba(255,255,255,.07);
+      padding:16px 18px;margin-top:4px;
+    }
+    .order-summary h4{
+      font-family:'Fredoka One',cursive;font-size:1rem;
+      margin-bottom:12px;color:var(--orange);
+    }
+    .order-line{
+      display:flex;justify-content:space-between;
+      font-size:.85rem;color:var(--text-muted);
+      padding:4px 0;
+    }
+    .order-line.total{
+      font-family:'Fredoka One',cursive;font-size:1.2rem;
+      color:var(--text);border-top:1px solid rgba(255,255,255,.08);
+      padding-top:10px;margin-top:6px;
+    }
+
+    .pay-btn{
+      width:100%;background:var(--orange);color:#fff;border:none;
+      border-radius:50px;padding:15px;margin-top:16px;
+      font-family:'Fredoka One',cursive;font-size:1.15rem;
+      cursor:pointer;box-shadow:0 6px 24px rgba(249,115,22,.35);
+      transition:transform .2s,box-shadow .2s;
+    }
+    .pay-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(249,115,22,.5)}
+
+    /* ── ORDER SUCCESS ── */
+    .order-success{
+      display:none;text-align:center;padding:20px 0;
+    }
+    .order-success-icon{font-size:4rem;margin-bottom:16px}
+    .order-success h3{font-family:'Fredoka One',cursive;font-size:2rem;color:var(--green);margin-bottom:12px}
+    .order-success p{color:var(--text-muted);line-height:1.7;font-size:.95rem}
+
+    /* ── TOAST NOTIFICATION ── */
+    #toast{
+      position:fixed;bottom:28px;left:50%;
+      transform:translateX(-50%) translateY(20px);
+      background:var(--bg-card);
+      border:1.5px solid rgba(249,115,22,.4);
+      border-radius:50px;
+      padding:12px 24px;
+      font-family:'Fredoka One',cursive;
+      font-size:.95rem;color:var(--text);
+      box-shadow:0 8px 32px rgba(0,0,0,.5);
+      z-index:99999;
+      opacity:0;
+      transition:opacity .3s,transform .3s;
+      white-space:nowrap;
+    }
+    #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+    /* ── PRODUCT DETAIL MODAL ── */
+    .detail-overlay{
+      position:fixed;inset:0;z-index:8000;
+      background:rgba(0,0,0,.85);backdrop-filter:blur(8px);
+      display:flex;align-items:center;justify-content:center;
+      padding:20px;opacity:0;pointer-events:none;transition:opacity .3s;
+    }
+    .detail-overlay.open{opacity:1;pointer-events:all}
+    .detail-box{
+      background:var(--bg-card);border-radius:28px;
+      border:1.5px solid rgba(249,115,22,.3);
+      max-width:700px;width:100%;
+      max-height:90vh;overflow-y:auto;
+      display:grid;grid-template-columns:280px 1fr;
+      transform:scale(.92) translateY(20px);
+      transition:transform .35s cubic-bezier(.22,1,.36,1);
+      position:relative;
+    }
+    .detail-overlay.open .detail-box{transform:scale(1) translateY(0)}
+    @media(max-width:580px){.detail-box{grid-template-columns:1fr}}
+    .detail-img{
+      background:#0d0820;border-radius:26px 0 0 26px;
+      display:flex;align-items:center;justify-content:center;
+      min-height:320px;overflow:hidden;
+    }
+    @media(max-width:580px){.detail-img{border-radius:26px 26px 0 0;min-height:200px}}
+    .detail-img img{width:100%;height:100%;object-fit:contain;padding:24px}
+    .detail-body{padding:32px 28px;display:flex;flex-direction:column;gap:14px}
+    .detail-close{
+      position:absolute;top:14px;right:14px;
+      background:rgba(255,255,255,.08);border:none;color:var(--text-muted);
+      width:34px;height:34px;border-radius:50%;font-size:1rem;
+      cursor:pointer;display:flex;align-items:center;justify-content:center;
+      transition:background .2s,color .2s;z-index:2;
+    }
+    .detail-close:hover{background:rgba(255,255,255,.18);color:#fff}
+    .detail-char{font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--orange)}
+    .detail-name{font-family:'Fredoka One',cursive;font-size:2rem;line-height:1}
+    .detail-price{font-family:'Fredoka One',cursive;font-size:2.4rem;color:var(--orange)}
+    .detail-desc{font-size:.9rem;color:var(--text-muted);line-height:1.65}
+    .detail-tags{display:flex;flex-wrap:wrap;gap:8px}
+    .detail-tag{
+      background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+      color:var(--text-muted);font-size:.72rem;font-weight:700;
+      padding:4px 12px;border-radius:20px;
+    }
+    .detail-add-btn{
+      background:var(--orange);color:#fff;border:none;
+      border-radius:50px;padding:13px 28px;
+      font-family:'Fredoka One',cursive;font-size:1.05rem;
+      cursor:pointer;box-shadow:0 6px 20px rgba(249,115,22,.3);
+      transition:transform .2s,box-shadow .2s;
+      margin-top:4px;
+    }
+    .detail-add-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(249,115,22,.45)}
+
+    /* hidden secret text inside detail modal of product 5 */
+    .secret-text{
+      font-size:.58rem;color:rgba(255,40,40,.08);
+      line-height:1.5;margin-top:8px;
+      font-style:italic;letter-spacing:.04em;
+    }
+
+    /* ── FOOTER ── */
+    footer{
+      background:#080510;border-top:1px solid rgba(255,255,255,.06);
+      padding:30px 48px;text-align:center;
+    }
+    .footer-copy{font-size:.8rem;color:var(--text-muted)}
+    .footer-copy strong{color:var(--orange)}
+    .footer-copy a{color:var(--orange);text-decoration:none}
+    .footer-copy a:hover{text-decoration:underline}
+
+    /* ── NOISE ── */
+    body::before{
+      content:'';position:fixed;inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events:none;z-index:0;opacity:.4;
+    }
+
+    /* Lang toggle */
+    .lang-toggle{display:flex;align-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:30px;overflow:hidden}
+    .lang-btn{background:none;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.08em;color:var(--text-muted);padding:5px 12px;transition:background .2s,color .2s;text-transform:uppercase}
+    .lang-btn.active{background:var(--orange);color:#fff}
+    .lang-btn:hover:not(.active){color:var(--text)}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="logo_nav.png" alt="Logo" onerror="this.style.display='none'"/>
+    Foxy's Palace
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+    <li><a href="index.html#animatronics" data-i18n="nav_chars">Characters</a></li>
+    <li><a href="index.html#tickets" data-i18n="nav_tickets">Tickets</a></li>
+    <li><a href="shop.html" class="active" data-i18n="nav_shop">🛍️ Shop</a></li>
+    <li>
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" id="btnPT" onclick="setLang('pt')">PT</button>
+      </div>
+    </li>
+    <li>
+      <button class="nav-cart-btn" onclick="openCart()">
+        🛒 <span data-i18n="nav_cart">Cart</span>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="shop-hero">
+  <div class="shop-hero-label" data-i18n="shop_label">Official Merchandise</div>
+  <h1 data-i18n-html="shop_h1">Foxy's Palace <span>Official Shop</span></h1>
+  <p data-i18n="shop_sub">Take a piece of the magic home! Exclusive merchandise featuring your favourite characters.</p>
+  <div class="hidden-lore">incident_log_1993_08_27 — file corrupted — do not search</div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all" onclick="filterProducts('all')" data-i18n="filter_all">All</button>
+  <button class="filter-btn" data-filter="shirt" onclick="filterProducts('shirt')" data-i18n="filter_shirts">Shirts</button>
+  <button class="filter-btn" data-filter="toy" onclick="filterProducts('toy')" data-i18n="filter_toys">Toys</button>
+</div>
+
+<!-- PRODUCTS -->
+<div class="products-section">
+  <div class="products-grid" id="productsGrid">
+
+    <!-- PRODUCT 1 — Foxy T-Shirt -->
+    <div class="product-card" data-type="shirt" data-id="1" onclick="openDetail(1)">
+      <div class="product-img">
+        <img src="produto1.png" alt="Foxy T-Shirt"/>
+        <span class="product-badge new" data-i18n="badge_new">New</span>
+      </div>
+      <div class="product-body">
+        <div class="product-char">Foxy</div>
+        <div class="product-name" data-i18n="p1_name">Foxy Classic T-Shirt</div>
+        <p class="product-desc" data-i18n="p1_desc">Show your Foxy's Palace pride! Soft cotton tee featuring Foxy's iconic design. Available in all sizes.</p>
+        <div class="product-footer">
+          <div class="product-price">$<span>18</span></div>
+          <button class="add-cart-btn" onclick="addToCart(event,1)" data-i18n="btn_cart">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 2 — Hopps Plush -->
+    <div class="product-card" data-type="toy" data-id="2" onclick="openDetail(2)">
+      <div class="product-img">
+        <img src="produto2.png" alt="Hopps Plush"/>
+        <span class="product-badge" data-i18n="badge_popular">Popular</span>
+      </div>
+      <div class="product-body">
+        <div class="product-char">Hopps</div>
+        <div class="product-name" data-i18n="p2_name">Hopps Plush Toy</div>
+        <p class="product-desc" data-i18n="p2_desc">Soft and squeezable! The official Hopps plushie — 30cm of pure green bunny energy. Your kids will love it.</p>
+        <p class="product-hidden-desc" data-i18n="p2_hidden">She remembers your face.</p>
+        <div class="product-footer">
+          <div class="product-price">$<span>24</span></div>
+          <button class="add-cart-btn" onclick="addToCart(event,2)" data-i18n="btn_cart">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 3 — Draccon T-Shirt -->
+    <div class="product-card" data-type="shirt" data-id="3" onclick="openDetail(3)">
+      <div class="product-img">
+        <img src="produto3.png" alt="Draccon T-Shirt"/>
+        <span class="product-badge limited" data-i18n="badge_limited">Limited</span>
+        <div class="subliminal">THEY ARE NOT SLEEPING</div>
+      </div>
+      <div class="product-body">
+        <div class="product-char">Draccon</div>
+        <div class="product-name" data-i18n="p3_name">Draccon Radical Tee</div>
+        <p class="product-desc" data-i18n="p3_desc">Rock Draccon's style! Limited edition guitar graphic tee — as radical as the dragon himself. Only 200 made.</p>
+        <div class="product-footer">
+          <div class="product-price">$<span>22</span></div>
+          <button class="add-cart-btn" onclick="addToCart(event,3)" data-i18n="btn_cart">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 4 — Foxy Action Figure -->
+    <div class="product-card" data-type="toy" data-id="4" onclick="openDetail(4)">
+      <div class="product-img">
+        <img src="produto4.png" alt="Foxy Action Figure"/>
+        <span class="product-badge" style="background:var(--purple-light)" data-i18n="badge_exclusive">Exclusive</span>
+      </div>
+      <div class="product-body">
+        <div class="product-char">Foxy</div>
+        <div class="product-name" data-i18n="p4_name">Foxy Action Figure</div>
+        <p class="product-desc" data-i18n="p4_desc">14cm die-cast action figure with 12 points of articulation. Comes with a mini microphone accessory. Collector's item!</p>
+        <div class="product-footer">
+          <div class="product-price">$<span>34</span></div>
+          <button class="add-cart-btn" onclick="addToCart(event,4)" data-i18n="btn_cart">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 5 — Mystery Box (secret) -->
+    <div class="product-card secret" data-type="toy" data-id="5" onclick="openDetail(5)">
+      <div class="product-img">
+        <img src="produto5.png" alt="Mystery Box"/>
+        <span class="product-badge sold-out" data-i18n="badge_mystery">???</span>
+        <div class="mystery-badge">?</div>
+      </div>
+      <div class="product-body">
+        <div class="product-char" data-i18n="p5_char">— CLASSIFIED —</div>
+        <div class="product-name" data-i18n="p5_name">Palace Mystery Box</div>
+        <p class="product-desc" data-i18n="p5_desc">A special box straight from the Palace. Contents unknown. Not available in any other store. Handle with care.</p>
+        <div class="product-footer">
+          <div class="product-price">$<span>??</span></div>
+          <button class="add-cart-btn" onclick="addToCart(event,5)" data-i18n="p5_btn">Request</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCartOutside(event)">
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h2>🛒 <span data-i18n="cart_title">Your Cart</span></h2>
+      <button class="cart-close-btn" onclick="closeCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <div class="cart-empty-icon">🛒</div>
+        <p data-i18n="cart_empty">Your cart is empty.<br/>Add some merch!</p>
+      </div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span data-i18n="cart_total">Total</span>
+        <span class="cart-total-price" id="cartTotal">$0</span>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn" onclick="openCheckout()" disabled data-i18n="cart_checkout">Checkout</button>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div class="detail-overlay" id="detailOverlay" onclick="closeDetailOutside(event)">
+  <div class="detail-box" id="detailBox">
+    <button class="detail-close" onclick="closeDetail()">✕</button>
+    <div class="detail-img">
+      <img id="detailImg" src="" alt=""/>
+    </div>
+    <div class="detail-body">
+      <div class="detail-char" id="detailChar"></div>
+      <div class="detail-name" id="detailName"></div>
+      <div class="detail-price" id="detailPrice"></div>
+      <p class="detail-desc" id="detailDesc"></p>
+      <div class="detail-tags" id="detailTags"></div>
+      <p class="secret-text" id="detailSecret"></p>
+      <button class="detail-add-btn" id="detailAddBtn" onclick="addToCartFromDetail()" data-i18n="btn_cart">Add to Cart</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="checkout-overlay" id="checkoutOverlay" onclick="closeCheckoutOutside(event)">
+  <div class="checkout-box">
+    <button class="checkout-close" onclick="closeCheckout()">✕</button>
+
+    <div id="checkoutForm">
+      <div class="checkout-title" data-i18n="checkout_title">Checkout</div>
+      <p class="checkout-sub" data-i18n="checkout_sub">Complete your order from Foxy's Palace Official Shop</p>
+
+      <div class="checkout-fields">
+        <div class="checkout-row">
+          <div class="checkout-field">
+            <label data-i18n="co_fname">First Name</label>
+            <input type="text" id="coFname" placeholder="John"/>
+          </div>
+          <div class="checkout-field">
+            <label data-i18n="co_lname">Last Name</label>
+            <input type="text" id="coLname" placeholder="Smith"/>
+          </div>
+        </div>
+        <div class="checkout-field">
+          <label data-i18n="co_email">Email</label>
+          <input type="email" id="coEmail" placeholder="john@email.com"/>
+        </div>
+        <div class="checkout-field">
+          <label data-i18n="co_addr">Shipping Address</label>
+          <input type="text" id="coAddr" placeholder="247 Foxy Boulevard..."/>
+        </div>
+
+        <div class="checkout-divider" data-i18n="co_payment">Payment</div>
+
+        <div class="checkout-field">
+          <label data-i18n="co_card">Card Number</label>
+          <input type="text" id="coCard" placeholder="•••• •••• •••• ••••" maxlength="19" oninput="formatCard(this)"/>
+        </div>
+        <div class="checkout-row">
+          <div class="checkout-field">
+            <label data-i18n="co_exp">Expiry</label>
+            <input type="text" id="coExp" placeholder="MM/YY" maxlength="5" oninput="formatExp(this)"/>
+          </div>
+          <div class="checkout-field">
+            <label>CVV</label>
+            <input type="text" id="coCvv" placeholder="•••" maxlength="3"/>
+          </div>
+        </div>
+
+        <div class="order-summary">
+          <h4 data-i18n="co_summary">Order Summary</h4>
+          <div id="checkoutSummaryLines"></div>
+          <div class="order-line total">
+            <span data-i18n="cart_total">Total</span>
+            <span id="checkoutTotal">$0</span>
+          </div>
+        </div>
+
+        <button class="pay-btn" onclick="processPayment()" data-i18n="co_pay">💳 Place Order</button>
+      </div>
+    </div>
+
+    <div class="order-success" id="orderSuccess">
+      <div class="order-success-icon">🎉</div>
+      <h3 data-i18n="co_done">Order Placed!</h3>
+      <p id="orderSuccessText"></p>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-copy">© 1993 <strong>Foxy's Entertainment Inc.</strong> — <a href="index.html" data-i18n="footer_back">Back to Main Site</a></p>
+</footer>
+
+<script>
+// ── TRANSLATIONS ─────────────────────────────────────
+const T = {
+  en: {
+    nav_home:'Home', nav_chars:'Characters', nav_tickets:'Tickets', nav_shop:'🛍️ Shop',
+    nav_cart:'Cart',
+    shop_label:'Official Merchandise',
+    shop_h1:'Foxy\'s Palace <span>Official Shop</span>',
+    shop_sub:"Take a piece of the magic home! Exclusive merchandise featuring your favourite characters.",
+    filter_all:'All', filter_shirts:'Shirts', filter_toys:'Toys',
+    badge_new:'New', badge_popular:'Popular', badge_limited:'Limited',
+    badge_exclusive:'Exclusive', badge_mystery:'???',
+    p1_name:"Foxy Classic T-Shirt", p1_desc:"Show your Foxy's Palace pride! Soft cotton tee featuring Foxy's iconic design. Available in all sizes.",
+    p2_name:"Hopps Plush Toy", p2_desc:"Soft and squeezable! The official Hopps plushie — 30cm of pure green bunny energy. Your kids will love it.",
+    p2_hidden:"She remembers your face.",
+    p3_name:"Draccon Radical Tee", p3_desc:"Rock Draccon's style! Limited edition guitar graphic tee — as radical as the dragon himself. Only 200 made.",
+    p4_name:"Foxy Action Figure", p4_desc:"14cm die-cast action figure with 12 points of articulation. Comes with a mini microphone accessory. Collector's item!",
+    p5_char:"— CLASSIFIED —", p5_name:"Palace Mystery Box",
+    p5_desc:"A special box straight from the Palace. Contents unknown. Not available in any other store. Handle with care.",
+    p5_btn:"Request",
+    btn_cart:"Add to Cart",
+    cart_title:'Your Cart', cart_empty:"Your cart is empty.\nAdd some merch!",
+    cart_total:'Total', cart_checkout:'Checkout',
+    checkout_title:'Checkout', checkout_sub:"Complete your order from Foxy's Palace Official Shop",
+    co_fname:'First Name', co_lname:'Last Name', co_email:'Email',
+    co_addr:'Shipping Address', co_payment:'Payment', co_card:'Card Number',
+    co_exp:'Expiry', co_summary:'Order Summary', co_pay:'💳 Place Order',
+    co_done:'Order Placed!',
+    footer_back:'Back to Main Site',
+    // detail extras
+    d1_long:"The ultimate fan shirt! Made from 100% organic cotton, pre-shrunk. Foxy's iconic blue and purple design printed with fade-resistant ink. Machine washable.",
+    d2_long:"Officially licensed plush. Ultra-soft materials, child-safe stuffing. Hopps stands 30cm tall and features her signature green colour with sparkling yellow eyes.",
+    d3_long:"Limited edition — only 200 units worldwide. The Draccon Radical Tee features a hand-drawn guitar graphic on the back. A true collector's piece.",
+    d4_long:"Premium die-cast collectible figure. 12 articulation points let you pose Foxy however you like. Comes in a collector's display box. Microphone accessory included.",
+    d5_long:"Contents of this box are not disclosed prior to delivery. Each box is sealed personally at the Palace. Reports suggest it contains something from before opening night.",
+    d5_secret:"unit_04 — last_active 27/08/1993 — STATUS: UNKNOWN",
+  },
+  pt: {
+    nav_home:'Início', nav_chars:'Personagens', nav_tickets:'Bilhetes', nav_shop:'🛍️ Loja',
+    nav_cart:'Carrinho',
+    shop_label:'Merchandising Oficial',
+    shop_h1:'Foxy\'s Palace <span>Loja Oficial</span>',
+    shop_sub:"Leva um pedaço da magia para casa! Merchandising exclusivo com as tuas personagens favoritas.",
+    filter_all:'Tudo', filter_shirts:'T-Shirts', filter_toys:'Brinquedos',
+    badge_new:'Novo', badge_popular:'Popular', badge_limited:'Limitado',
+    badge_exclusive:'Exclusivo', badge_mystery:'???',
+    p1_name:"T-Shirt Clássica do Foxy", p1_desc:"Mostra o teu orgulho do Foxy's Palace! T-shirt de algodão suave com o design icónico do Foxy. Disponível em todos os tamanhos.",
+    p2_name:"Peluche da Hopps", p2_desc:"Macio e adorável! O peluche oficial da Hopps — 30cm de energia pura de coelha verde. Os teus filhos vão adorar.",
+    p2_hidden:"Ela lembra-se da tua cara.",
+    p3_name:"T-Shirt Radical do Draccon", p3_desc:"Veste o estilo do Draccon! T-shirt de edição limitada com gráfico de guitarra — tão radical quanto o dragão. Apenas 200 unidades.",
+    p4_name:"Figura de Ação do Foxy", p4_desc:"Figura colecionável de 14cm com 12 pontos de articulação. Inclui microfone em miniatura. Peça de colecionador!",
+    p5_char:"— CLASSIFICADO —", p5_name:"Caixa Mistério do Palácio",
+    p5_desc:"Uma caixa especial diretamente do Palácio. Conteúdo desconhecido. Não disponível em mais nenhuma loja. Manusear com cuidado.",
+    p5_btn:"Solicitar",
+    btn_cart:"Adicionar ao Carrinho",
+    cart_title:'O Teu Carrinho', cart_empty:"O teu carrinho está vazio.\nAdiciona algum merch!",
+    cart_total:'Total', cart_checkout:'Finalizar Compra',
+    checkout_title:'Checkout', checkout_sub:"Completa o teu pedido da Loja Oficial do Foxy's Palace",
+    co_fname:'Primeiro Nome', co_lname:'Apelido', co_email:'Email',
+    co_addr:'Morada de Envio', co_payment:'Pagamento', co_card:'Número do Cartão',
+    co_exp:'Validade', co_summary:'Resumo do Pedido', co_pay:'💳 Finalizar Pedido',
+    co_done:'Pedido Confirmado!',
+    footer_back:'Voltar ao Site Principal',
+    d1_long:"A t-shirt definitiva para fãs! Feita de 100% algodão orgânico, pré-encolhida. Design icónico do Foxy em azul e roxo com tinta resistente à desbotação. Lavável à máquina.",
+    d2_long:"Peluche com licença oficial. Materiais ultra-suaves, enchimento seguro para crianças. A Hopps tem 30cm de altura e destaca-se pela sua cor verde com olhos amarelos.",
+    d3_long:"Edição limitada — apenas 200 unidades mundiais. A T-Shirt Radical do Draccon apresenta um gráfico de guitarra desenhado à mão nas costas. Uma verdadeira peça de colecionador.",
+    d4_long:"Figura colecionável de fundição premium. 12 pontos de articulação permitem-te posar o Foxy como quiseres. Vem numa caixa de exposição para colecionadores. Microfone incluído.",
+    d5_long:"O conteúdo desta caixa não é divulgado antes da entrega. Cada caixa é selada pessoalmente no Palácio. Relatos sugerem que contém algo de antes da noite de inauguração.",
+    d5_secret:"unidade_04 — última_atividade 27/08/1993 — ESTADO: DESCONHECIDO",
+  }
+};
+
+let currentLang = 'en';
+
+function setLang(l) {
+  currentLang = l;
+  document.documentElement.lang = l === 'pt' ? 'pt-PT' : 'en';
+  document.getElementById('btnEN').classList.toggle('active', l==='en');
+  document.getElementById('btnPT').classList.toggle('active', l==='pt');
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (T[l][k] !== undefined) el.textContent = T[l][k];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const k = el.getAttribute('data-i18n-html');
+    if (T[l][k] !== undefined) el.innerHTML = T[l][k];
+  });
+  renderCart();
+}
+window.setLang = setLang;
+
+// ── PRODUCT DATA ─────────────────────────────────────
+const PRODUCTS = {
+  1:{ img:'produto1.png', char:'Foxy', nameKey:'p1_name', price:18, type:'shirt', tags:['👕 T-Shirt','🦊 Foxy','100% Cotton','All Sizes'] },
+  2:{ img:'produto2.png', char:'Hopps', nameKey:'p2_name', price:24, type:'toy', tags:['🧸 Plush','🐰 Hopps','30cm','Child Safe'] },
+  3:{ img:'produto3.png', char:'Draccon', nameKey:'p3_name', price:22, type:'shirt', tags:['👕 T-Shirt','🐉 Draccon','Limited Ed.','200 Only'] },
+  4:{ img:'produto4.png', char:'Foxy', nameKey:'p4_name', price:34, type:'toy', tags:['🎭 Figure','🦊 Foxy','14cm','Die-Cast'] },
+  5:{ img:'produto5.png', char:'???', nameKey:'p5_name', price:'??', type:'toy', tags:['📦 Mystery','🔒 Sealed','Limited','Palace Exclusive'] },
+};
+
+// ── FILTER ───────────────────────────────────────────
+function filterProducts(type) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter===type));
+  document.querySelectorAll('.product-card').forEach(c => {
+    c.style.display = (type==='all' || c.dataset.type===type) ? 'block' : 'none';
+  });
+}
+window.filterProducts = filterProducts;
+
+// ── CART STATE ───────────────────────────────────────
+let cart = {}; // { id: qty }
+
+function addToCart(e, id) {
+  e.stopPropagation();
+  if (id === 5) { showToast(currentLang==='pt' ? '📦 Pedido enviado ao Palácio...' : '📦 Request sent to the Palace...'); return; }
+  cart[id] = (cart[id] || 0) + 1;
+  updateCartCount();
+  renderCart();
+  showToast(currentLang==='pt' ? '✅ Adicionado ao carrinho!' : '✅ Added to cart!');
+}
+window.addToCart = addToCart;
+
+function addToCartFromDetail() {
+  const id = parseInt(document.getElementById('detailBox').dataset.productId);
+  if (id === 5) { showToast(currentLang==='pt' ? '📦 Pedido enviado...' : '📦 Request sent...'); closeDetail(); return; }
+  cart[id] = (cart[id] || 0) + 1;
+  updateCartCount();
+  renderCart();
+  closeDetail();
+  openCart();
+}
+window.addToCartFromDetail = addToCartFromDetail;
+
+function removeFromCart(id) {
+  delete cart[id];
+  updateCartCount();
+  renderCart();
+}
+window.removeFromCart = removeFromCart;
+
+function changeQty(id, delta) {
+  cart[id] = (cart[id] || 0) + delta;
+  if (cart[id] <= 0) delete cart[id];
+  updateCartCount();
+  renderCart();
+}
+window.changeQty = changeQty;
+
+function updateCartCount() {
+  const total = Object.values(cart).reduce((a,b)=>a+b, 0);
+  document.getElementById('cartCount').textContent = total;
+}
+
+function getCartTotal() {
+  return Object.entries(cart).reduce((sum,[id,qty]) => {
+    const p = PRODUCTS[id]?.price;
+    return sum + (typeof p === 'number' ? p * qty : 0);
+  }, 0);
+}
+
+function renderCart() {
+  const el = document.getElementById('cartItems');
+  const empty = document.getElementById('cartEmpty');
+  const checkoutBtn = document.getElementById('checkoutBtn');
+  const keys = Object.keys(cart).filter(id => cart[id] > 0);
+
+  if (keys.length === 0) {
+    empty.style.display = 'flex';
+    checkoutBtn.disabled = true;
+    el.innerHTML = '';
+    el.appendChild(empty);
+    document.getElementById('cartTotal').textContent = '$0';
+    return;
+  }
+  empty.style.display = 'none';
+  checkoutBtn.disabled = false;
+
+  el.innerHTML = keys.map(id => {
+    const p = PRODUCTS[id];
+    const lang = currentLang;
+    return `
+    <div class="cart-item">
+      <div class="cart-item-img"><img src="${p.img}" alt=""/></div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${T[lang][p.nameKey] || p.nameKey}</div>
+        <div class="cart-item-qty">
+          <button class="qty-btn" onclick="changeQty(${id},-1)">−</button>
+          <span class="qty-num">${cart[id]}</span>
+          <button class="qty-btn" onclick="changeQty(${id},1)">+</button>
+          <button class="cart-item-remove" onclick="removeFromCart(${id})">🗑 Remove</button>
+        </div>
+      </div>
+      <div class="cart-item-price">$${p.price * cart[id]}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('cartTotal').textContent = '$' + getCartTotal();
+}
+
+// ── CART OPEN/CLOSE ──────────────────────────────────
+function openCart() {
+  document.getElementById('cartOverlay').classList.add('open');
+  document.getElementById('cartSidebar').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderCart();
+}
+function closeCart() {
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.getElementById('cartSidebar').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeCartOutside(e) {
+  if (e.target === document.getElementById('cartOverlay')) closeCart();
+}
+window.openCart = openCart;
+window.closeCart = closeCart;
+window.closeCartOutside = closeCartOutside;
+
+// ── PRODUCT DETAIL ───────────────────────────────────
+let currentDetailId = null;
+function openDetail(id) {
+  const p = PRODUCTS[id];
+  const lang = currentLang;
+  currentDetailId = id;
+  document.getElementById('detailBox').dataset.productId = id;
+  document.getElementById('detailImg').src = p.img;
+  document.getElementById('detailChar').textContent = id === 5 ? T[lang]['p5_char'] : p.char;
+  document.getElementById('detailName').textContent = T[lang][p.nameKey] || p.nameKey;
+  document.getElementById('detailPrice').textContent = typeof p.price === 'number' ? '$' + p.price : '$??';
+  document.getElementById('detailDesc').textContent = T[lang]['d'+id+'_long'] || '';
+  document.getElementById('detailTags').innerHTML = p.tags.map(t=>`<span class="detail-tag">${t}</span>`).join('');
+  // Secret text only on product 5
+  document.getElementById('detailSecret').textContent = id === 5 ? T[lang]['d5_secret'] : '';
+  const addBtn = document.getElementById('detailAddBtn');
+  addBtn.textContent = id === 5 ? (T[lang]['p5_btn'] || 'Request') : (T[lang]['btn_cart'] || 'Add to Cart');
+  document.getElementById('detailOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDetail() {
+  document.getElementById('detailOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeDetailOutside(e) {
+  if (e.target === document.getElementById('detailOverlay')) closeDetail();
+}
+window.openDetail = openDetail;
+window.closeDetail = closeDetail;
+window.closeDetailOutside = closeDetailOutside;
+
+// ── CHECKOUT ─────────────────────────────────────────
+function openCheckout() {
+  closeCart();
+  // Fill summary
+  const lang = currentLang;
+  const lines = Object.entries(cart).filter(([,q])=>q>0).map(([id,qty])=>{
+    const p = PRODUCTS[id];
+    return `<div class="order-line"><span>${T[lang][p.nameKey]} x${qty}</span><span>$${p.price*qty}</span></div>`;
+  }).join('');
+  document.getElementById('checkoutSummaryLines').innerHTML = lines;
+  document.getElementById('checkoutTotal').textContent = '$' + getCartTotal();
+  document.getElementById('checkoutForm').style.display = 'block';
+  document.getElementById('orderSuccess').style.display = 'none';
+  document.getElementById('checkoutOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeCheckout() {
+  document.getElementById('checkoutOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeCheckoutOutside(e) {
+  if (e.target === document.getElementById('checkoutOverlay')) closeCheckout();
+}
+window.openCheckout = openCheckout;
+window.closeCheckout = closeCheckout;
+window.closeCheckoutOutside = closeCheckoutOutside;
+
+function formatCard(el) {
+  let v = el.value.replace(/\D/g,'').substring(0,16);
+  el.value = v.replace(/(.{4})/g,'$1 ').trim();
+}
+function formatExp(el) {
+  let v = el.value.replace(/\D/g,'').substring(0,4);
+  if (v.length > 2) v = v.substring(0,2) + '/' + v.substring(2);
+  el.value = v;
+}
+window.formatCard = formatCard;
+window.formatExp = formatExp;
+
+function processPayment() {
+  const lang = currentLang;
+  const fname = document.getElementById('coFname').value.trim();
+  if (!fname) return;
+  document.getElementById('checkoutForm').style.display = 'none';
+  const succ = document.getElementById('orderSuccess');
+  succ.style.display = 'block';
+  succ.querySelector('p').textContent = lang === 'pt'
+    ? `Obrigado, ${fname}! O teu pedido está confirmado. Receberás o teu merch do Foxy's Palace em breve. 🦊`
+    : `Thank you, ${fname}! Your order is confirmed. You'll receive your Foxy's Palace merch soon. 🦊`;
+  cart = {};
+  updateCartCount();
+  renderCart();
+  setTimeout(() => closeCheckout(), 5000);
+}
+window.processPayment = processPayment;
+
+// ── TOAST ────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ── ESC KEY ──────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeCart(); closeDetail(); closeCheckout(); }
+});
+</script>
+</body>
+</html>
